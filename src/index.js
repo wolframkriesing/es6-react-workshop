@@ -6,10 +6,13 @@ import React from 'react';
 
 class Page extends React.Component {
   render() {
-    return <div>Hi I am react</div>;
+    return <div>
+      <h1>My ES6 katas</h1>
+      {Object.keys(this.props.katas).map(groupName => <h2>{groupName}</h2>)}
+    </div>;
   }
 }
 
 new GroupedKata(loadRemoteFile, KATAS_URL).load(() => {}, (katas) => {
-  React.render(<Page/>, document.getElementById('app'));
+  React.render(<Page katas={katas}/>, document.getElementById('app'));
 });
