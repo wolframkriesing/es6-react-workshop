@@ -1,6 +1,8 @@
 export default class KataGroups {
   static fromRawKataData(rawGroups) {
-    return Object.keys(rawGroups).map(groupName => new KataGroup(groupName, rawGroups[groupName].items));
+    let kataGroups = new KataGroups();
+    kataGroups.groups = Object.keys(rawGroups).map(groupName => new KataGroup(groupName, rawGroups[groupName].items));
+    return kataGroups;
   }
 }
 

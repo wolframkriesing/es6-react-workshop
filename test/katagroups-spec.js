@@ -4,16 +4,13 @@ import KataGroups from '../src/katagroups.js';
 describe('kata data for rendering', function() {
 
   let kataGroups;
-  function processRawData(rawData) {
-    kataGroups = KataGroups.fromRawKataData(rawData);
-  }
-
   describe('a group', function() {
     
     const groupName = 'group one';
     let firstGroup;
     beforeEach(function() {
-      processRawData({[groupName]: {items: [{name: 'jojo', path: 'some'}]}});
+      const rawData = {[groupName]: {items: [{name: 'jojo', path: 'some'}]}};
+      kataGroups = KataGroups.fromRawKataData(rawData).groups;
       firstGroup = kataGroups[0];
     });
     it('has the name of the kata group', () => {assert.equal(firstGroup.name, groupName)});
