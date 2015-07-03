@@ -4,7 +4,7 @@ import url from 'url';
 export function loadFileOnServer(fileUrl, onLoaded) {
   var data = '';
   var options = url.parse(fileUrl);
-  options.headers = {'User-Agent': ''}; // github wants a user agent header
+  options.withCredentials = false;
   var request = http.request(options, function(res) {
     res.on('data', function(chunk) {data += chunk;});
     res.on('end', function() {
