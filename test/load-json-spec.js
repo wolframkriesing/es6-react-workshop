@@ -3,13 +3,32 @@ var katasUrl = 'http://katas.tddbin.com/katas/es6/language/__grouped__.json';
 
 describe('load ES6 kata data', function() {
   it('loaded data are as expected', function(done) {
-    function onLoaded(err, groupedKatas) {
+    function onSuccess(groupedKatas) {
       assert.equal('groups' in groupedKatas, true);
       done();
     }
-    loadFileOnServer(katasUrl, onLoaded);
+    loadGroupedKata(katasUrl, function() {}, onSuccess);
+  });
+  it('on error the error callback shall be called and the error passed', function(done) {
+    function onError(err) {
+      assert.ok(err);
+      done();
+    }
+    var invalidUrl = 'http://katas.tddbin.com/katas/es6/language';
+    loadGroupedKata(invalidUrl, onError);
   });
 });
+
+function loadGroupedKata(katasUrl, onError, onSuccess) {
+  function onLoaded(err, data) {
+    if (err) {
+      onError(err);
+    } else {
+      onSuccess(data);
+    }
+  }
+  loadFileOnServer(katasUrl, onLoaded);
+}
 
 
 var http = require('http');
