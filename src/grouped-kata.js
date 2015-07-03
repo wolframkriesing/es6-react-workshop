@@ -1,8 +1,7 @@
-import {loadFileOnServer} from '../src/server/http-get.js';
-
 export default class GroupedKata{
-  constructor(katasUrl){
+  constructor(loadRemoteFile, katasUrl){
     this.katasUrl = katasUrl;
+    this.loadRemoteFile = loadRemoteFile;
   }
   
   load(onError, onSuccess) {
@@ -12,6 +11,7 @@ export default class GroupedKata{
         parsed = JSON.parse(data);
       } catch (jsonParseError) {
         onError(jsonParseError);
+        return;
       }
       if (err) {
         onError(err);
@@ -22,6 +22,6 @@ export default class GroupedKata{
       }
     }
 
-    loadFileOnServer(this.katasUrl, onLoaded);
+    this.loadRemoteFile(this.katasUrl, onLoaded);
   }
 }
