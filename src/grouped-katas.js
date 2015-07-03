@@ -18,22 +18,11 @@ export default class GroupedKata{
       } else if (!('groups' in parsed)) {
         onError(new Error('No groups found in the data'));
       } else {
-        onSuccess(this.process(parsed.groups));
+        onSuccess(parsed.groups);
       }
     };
 
     this.loadRemoteFile(this.katasUrl, onLoaded);
   }
   
-  process(rawGroups) {
-    return Object.keys(rawGroups).map(groupName => new KataGroup(groupName, rawGroups[groupName].items));
-  }
-  
-}
-
-class KataGroup {
-  constructor(name, items) {
-    this.name = name;
-    this.katasCount = items.length;
-  }
 }
