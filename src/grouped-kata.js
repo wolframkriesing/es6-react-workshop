@@ -1,8 +1,11 @@
-var loadFileOnServer = require('../src/server/http-get.js');
+import {loadFileOnServer} from '../src/server/http-get.js';
 
-function GroupedKata(katasUrl) {
+export default class GroupedKata{
+  constructor(katasUrl){
+    this.katasUrl = katasUrl;
+  }
   
-  this.load = function(onError, onSuccess) {
+  load(onError, onSuccess) {
     function onLoaded(err, data) {
       var parsed;
       try {
@@ -19,8 +22,6 @@ function GroupedKata(katasUrl) {
       }
     }
 
-    loadFileOnServer(katasUrl, onLoaded);
+    loadFileOnServer(this.katasUrl, onLoaded);
   }
 }
-
-module.exports = GroupedKata;
