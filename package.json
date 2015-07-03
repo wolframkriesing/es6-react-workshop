@@ -9,7 +9,7 @@
     "build:app": "browserify src/index.js --outfile=dist/index.min.js --transform=babelify",
     "build:html": "cp src/index.html dist",
     "build": "mkdir -p dist; npm test && npm run build:app && npm run build:html",
-    "watch:build:app": "watch 'npm run build:app' src --wait=1"
+    "watch:build:app": "chokidar 'src' -c 'npm run build:app'"
   },
   "keywords": [
     "es6",
@@ -26,6 +26,7 @@
     "browserify": "^10.2.4",
     "babelify": "^6.1.2",
     "react": "^0.13.3",
-    "watch": "^0.16.0"
+    "chokidar-cli": "^0.3.0",
+    "chokidar": "^1.0.3"
   }
 }
