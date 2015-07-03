@@ -7,15 +7,19 @@ describe('load ES6 kata data', function() {
       assert.equal('groups' in groupedKatas, true);
       done();
     }
+
     loadGroupedKata(katasUrl, function() {}, onSuccess);
   });
-  it('on error the error callback shall be called and the error passed', function(done) {
-    function onError(err) {
-      assert.ok(err);
-      done();
-    }
-    var invalidUrl = 'http://katas.tddbin.com/katas/es6/language';
-    loadGroupedKata(invalidUrl, onError);
+  describe('on error, call error callback and the error passed', function() {
+    it('invalid JSON', function(done) {
+      function onError(err) {
+        assert.ok(err);
+        done();
+      }
+
+      var invalidUrl = 'http://katas.tddbin.com/katas/es6/language';
+      loadGroupedKata(invalidUrl, onError);
+    });
   });
 });
 
@@ -25,16 +29,16 @@ function loadGroupedKata(katasUrl, onError, onSuccess) {
       var parsed = JSON.parse(data);
     } catch (jsonParseError) {
       onError(jsonParseError);
-    }  
+    }
     if (err) {
       onError(err);
     } else {
       onSuccess(parsed);
     }
   }
+
   loadFileOnServer(katasUrl, onLoaded);
 }
-
 
 var http = require('http');
 var url = require('url');
