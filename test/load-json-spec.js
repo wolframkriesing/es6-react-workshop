@@ -1,12 +1,13 @@
 /* global require, describe, it */
 
 var assert = require('assert');
-var katasUrl = 'http://katas.tddbin.com/katas/es6/language/__grouped__.json';
+var urlPrefix = 'http://katas.tddbin.com/katas/es6/language/';
+var katasUrl = urlPrefix + '__grouped__.json';
 
 describe('load ES6 kata data', function() {
   it('loaded data are as expected', function(done) {
     function onSuccess(groupedKatas) {
-      assert.equal('groups' in groupedKatas, true);
+      assert.ok(groupedKatas);
       done();
     }
 
@@ -19,8 +20,17 @@ describe('load ES6 kata data', function() {
         done();
       }
 
-      var invalidUrl = 'http://katas.tddbin.com/katas/es6/language';
+      var invalidUrl = urlPrefix;
       loadGroupedKata(invalidUrl, onError);
+    });
+    it('for invalid data', function(done) {
+      function onError(err) {
+        assert.ok(err);
+        done();
+      }
+
+      var invalidData = urlPrefix + '__all__.json';
+      loadGroupedKata(invalidData, onError);
     });
   });
 });
@@ -35,8 +45,10 @@ function loadGroupedKata(katasUrl, onError, onSuccess) {
     }
     if (err) {
       onError(err);
+    } else if (!('groups' in parsed)) {
+      onError(new Error('No groups found in the data'));
     } else {
-      onSuccess(parsed);
+      onSuccess(parsed.groups);
     }
   }
 
