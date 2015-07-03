@@ -137,6 +137,9 @@ a {
     border-bottom: 1px solid #ddd;
     border-left: 6px solid transparent;
 }
+.email-item a {
+  color: black;
+}
     .email-avatar {
         border-radius: 3px;
         margin-right: 0.5em;
@@ -153,6 +156,7 @@ a {
         margin: 0.4em 0;
     }
 
+.email-item:hover,
 .email-item-selected {
     background: #eee;
 }
