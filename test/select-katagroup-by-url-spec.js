@@ -17,22 +17,35 @@ describe('a URL change selects a certain kata group', function() {
     assert.notCalled(kataGroups.selectGroupByName);
   });
 
-  it('a hash with `kataGroup=x` selects that kata group', function() {
-    let kataGroups = new KataGroups();
-    sinon.stub(kataGroups, 'selectGroupByName');
-    
-    let url = 'http://whatever.com/#kataGroup=x';
-    selectGroupByQuery(kataGroups, url);
-    
-    assert.calledWith(kataGroups.selectGroupByName, 'x');
+  describe('select right kata group', function() {
+    it('a hash with `kataGroup=x`', function() {
+      let kataGroups = new KataGroups();
+      sinon.stub(kataGroups, 'selectGroupByName');
+      
+      let url = 'http://whatever.com/#kataGroup=x';
+      selectGroupByQuery(kataGroups, url);
+      
+      assert.calledWith(kataGroups.selectGroupByName, 'x');
+    });
+  
+    it('a url encoded hash `kataGroup=kata%20name`', function() {
+      let kataGroups = new KataGroups();
+      sinon.stub(kataGroups, 'selectGroupByName');
+      
+      let url = 'http://whatever.com/#kataGroup=kata%20name';
+      selectGroupByQuery(kataGroups, url);
+      
+      assert.calledWith(kataGroups.selectGroupByName, 'kata name');
+    });
   });
   
 });
 
-import url from 'url';
-import querystring from 'querystring';
+import {parse as parseUrl} from 'url';
+import {parse as parseQuerystring} from 'querystring';
 function selectGroupByQuery(kataGroups, url) {
   if (url) {
-    kataGroups.selectGroupByName('x');
+    const kataGroupName = parseQuerystring(parseUrl(url).hash.replace(/^#/, '')).kataGroup
+    kataGroups.selectGroupByName(kataGroupName);
   }
 }
