@@ -49,3 +49,36 @@ describe('load ES6 kata data', function() {
     });
   });
 });
+
+describe('prepare kata data for rendering', function() {
+
+  let kataGroups;
+  function processRawData(rawData) {
+    function onSuccess(groupedKatas) {
+      kataGroups = process(groupedKatas);
+    }
+    const validData = JSON.stringify(rawData);
+    const loaderStub = remoteFileLoaderWhichReturnsGivenData(validData);
+    new GroupedKata(loaderStub, 'irrelevant url').load(() => {}, onSuccess);
+  }
+
+  describe('a group', function() {
+    it('becomes a KataGroup', function() {
+      processRawData({groups: {'group one': {items: [{name: 'jojo', path: 'some'}]}}});
+      
+      assert.equal(kataGroups[0] instanceof KataGroup, true);
+    });
+  });
+  it('a group without items ...', function() {
+    //processRawData({groups: {'group one': {items: []}}});
+  });
+});
+
+function process(rawGroups) {
+  return Object.keys(rawGroups).map(groupName => new KataGroup(groupName));
+}
+
+class KataGroup {
+  constructor(name) {
+  }
+}
