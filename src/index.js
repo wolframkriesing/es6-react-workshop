@@ -5,5 +5,5 @@ import React from 'react';
 import Page from './components/page.js';
 
 new GroupedKatas(loadRemoteFile, KATAS_URL).load(() => {}, (groupedKatas) => {
-  React.render(<Page katas={groupedKatas}/>, document.getElementById('app'));
+  React.render(<Page groupedKatas={groupedKatas}/>, document.getElementById('app'));
 });
