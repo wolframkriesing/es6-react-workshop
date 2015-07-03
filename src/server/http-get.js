@@ -1,7 +1,7 @@
-var http = require('http');
-var url = require('url');
+import http from 'http';
+import url from 'url';
 
-function loadFileOnServer(fileUrl, onLoaded) {
+export function loadFileOnServer(fileUrl, onLoaded) {
   var data = '';
   var options = url.parse(fileUrl);
   options.headers = {'User-Agent': ''}; // github wants a user agent header
@@ -14,5 +14,3 @@ function loadFileOnServer(fileUrl, onLoaded) {
   request.on('error', function(e) { onLoaded(e); });
   request.end();
 }
-
-module.exports = loadFileOnServer;
