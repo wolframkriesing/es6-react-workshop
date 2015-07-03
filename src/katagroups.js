@@ -16,6 +16,7 @@ export default class KataGroups {
       }
     });
   }
+  
 }
 
 class KataGroup {

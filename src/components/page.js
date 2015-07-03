@@ -8,7 +8,7 @@ export default class Page extends React.Component {
   render() {
     return <div>
       <div id="layout" className="content pure-g">
-        <KataGroups kataGroups={this.props.groupedKatas}/>
+        <KataGroups kataGroups={this.props.kataGroups.groups}/>
         <Katas />
         <Kata />
     </div>
