@@ -4,7 +4,7 @@
   "description": "ES6+react.js workshop, es6katas page",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "npm run lint && mocha",
     "lint": "jscs test"
   },
   "keywords": [
