@@ -9,6 +9,7 @@
     "build:app": "browserify src/index.js --outfile=dist/index.min.js --transform=babelify",
     "build:html": "cp src/index.html dist",
     "build": "mkdir -p dist; npm test && npm run build:app && npm run build:html",
+    "watch:build": "chokidar 'src' -c 'npm run build'",
     "watch:build:app": "chokidar 'src' -c 'npm run build:app'"
   },
   "keywords": [
