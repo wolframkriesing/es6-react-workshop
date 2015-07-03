@@ -55,7 +55,7 @@ describe('prepare kata data for rendering', function() {
   let kataGroups;
   function processRawData(rawData) {
     function onSuccess(groupedKatas) {
-      kataGroups = process(groupedKatas);
+      kataGroups = groupedKatas;
     }
     const validData = JSON.stringify(rawData);
     const loaderStub = remoteFileLoaderWhichReturnsGivenData(validData);
@@ -70,7 +70,6 @@ describe('prepare kata data for rendering', function() {
       processRawData({groups: {[groupName]: {items: [{name: 'jojo', path: 'some'}]}}});
       firstGroup = kataGroups[0];
     });
-    it('becomes a KataGroup', () => {assert.equal(firstGroup instanceof KataGroup, true)});
     it('has the name of the kata group', () => {assert.equal(firstGroup.name, groupName)});
     it('has a katasCount', () => {assert.equal(firstGroup.katasCount, 1)});
   });
@@ -78,14 +77,3 @@ describe('prepare kata data for rendering', function() {
     //processRawData({groups: {'group one': {items: []}}});
   });
 });
-
-function process(rawGroups) {
-  return Object.keys(rawGroups).map(groupName => new KataGroup(groupName, rawGroups[groupName].items));
-}
-
-class KataGroup {
-  constructor(name, items) {
-    this.name = name;
-    this.katasCount = items.length;
-  }
-}

@@ -5,7 +5,7 @@ export default class GroupedKata{
   }
   
   load(onError, onSuccess) {
-    function onLoaded(err, data) {
+    const onLoaded = (err, data) => {
       var parsed;
       try {
         parsed = JSON.parse(data);
@@ -18,10 +18,22 @@ export default class GroupedKata{
       } else if (!('groups' in parsed)) {
         onError(new Error('No groups found in the data'));
       } else {
-        onSuccess(parsed.groups);
+        onSuccess(this.process(parsed.groups));
       }
-    }
+    };
 
     this.loadRemoteFile(this.katasUrl, onLoaded);
+  }
+  
+  process(rawGroups) {
+    return Object.keys(rawGroups).map(groupName => new KataGroup(groupName, rawGroups[groupName].items));
+  }
+  
+}
+
+class KataGroup {
+  constructor(name, items) {
+    this.name = name;
+    this.katasCount = items.length;
   }
 }
