@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npm run lint && mocha",
-    "lint": "jscs test"
+    "lint": "jscs test && jshint test"
   },
   "keywords": [
     "es6",
