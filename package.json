@@ -10,7 +10,7 @@
     "test": "npm run lint && mocha --compilers js:babel-core/register",
     "lint": "jscs test && jshint test",
     "build:app": "browserify src/index.js --outfile=dist/index.min.js --transform=babelify",
-    "build:html": "cp src/index.html dist",
+    "build:html": "cp src/index.html dist; cp -R vendor/pure-layout-email/css dist; cp -R vendor/pure-layout-email/img dist",
     "build": "mkdir -p dist; npm test && npm run build:app && npm run build:html",
     "watch:build": "chokidar 'src' -c 'npm run build'",
     "watch:build:app": "chokidar 'src' -c 'npm run build:app'"
