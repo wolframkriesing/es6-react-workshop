@@ -1,7 +1,7 @@
 /* global describe, it */
 
 import assert from 'assert';
-import GroupedKata from '../src/grouped-katas.js';
+import RawKataData from '../src/rawkatadata.js';
 
 function remoteFileLoaderWhichReturnsGivenData(data) {
   return (url, onLoaded) => {
@@ -24,7 +24,7 @@ describe('load ES6 kata data', function() {
 
     const validData = JSON.stringify({groups: {}});
     const loaderStub = remoteFileLoaderWhichReturnsGivenData(validData);
-    new GroupedKata(loaderStub, 'irrelevant url').load(() => {}, onSuccess);
+    new RawKataData(loaderStub, 'irrelevant url').load(() => {}, onSuccess);
   });
   describe('on error, call error callback and the error passed', function() {
 
@@ -35,7 +35,7 @@ describe('load ES6 kata data', function() {
       }
 
       const loaderStub = remoteFileLoaderWhichReturnsError(new Error(''));
-      new GroupedKata(loaderStub, 'irrelevant url').load(onError);
+      new RawKataData(loaderStub, 'irrelevant url').load(onError);
     });
     it('for invalid data', function(done) {
       function onError(err) {
@@ -45,7 +45,7 @@ describe('load ES6 kata data', function() {
 
       const invalidData = JSON.stringify({propertyGroupsMissing:{}});
       const loaderStub = remoteFileLoaderWhichReturnsGivenData(invalidData);
-      new GroupedKata(loaderStub, 'irrelevant url').load(onError);
+      new RawKataData(loaderStub, 'irrelevant url').load(onError);
     });
   });
 });

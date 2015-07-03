@@ -1,4 +1,4 @@
-export default class GroupedKata{
+export default class RawKataData{
   constructor(loadRemoteFile, katasUrl){
     this.katasUrl = katasUrl;
     this.loadRemoteFile = loadRemoteFile;
