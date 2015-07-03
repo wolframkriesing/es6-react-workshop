@@ -8,7 +8,6 @@ export default class KataGroups {
   }
   
   selectGroupByName(nameToSelect) {
-    this.selectedGroup = null;
     this.groups.some((group) => {
       if (group.name === nameToSelect) {
         this.selectedGroup = group;
