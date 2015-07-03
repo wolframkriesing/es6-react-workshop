@@ -1,9 +1,7 @@
 /* global describe, it */
 
 import assert from 'assert';
-const urlPrefix = 'http://katas.tddbin.com/katas/es6/language';
-const katasUrl = `${urlPrefix}/__grouped__.json`;
-
+import {KATAS_URL, URL_PREFIX} from '../src/config.js';
 import GroupedKata from '../src/grouped-kata.js';
 
 describe('load ES6 kata data', function() {
@@ -13,7 +11,7 @@ describe('load ES6 kata data', function() {
       done();
     }
 
-    new GroupedKata(katasUrl).load(() => {}, onSuccess);
+    new GroupedKata(KATAS_URL).load(() => {}, onSuccess);
   });
   describe('on error, call error callback and the error passed', function() {
     it('invalid JSON', function(done) {
@@ -22,7 +20,7 @@ describe('load ES6 kata data', function() {
         done();
       }
 
-      var invalidUrl = urlPrefix;
+      var invalidUrl = URL_PREFIX;
       new GroupedKata(invalidUrl).load(onError);
     });
     it('for invalid data', function(done) {
@@ -31,7 +29,7 @@ describe('load ES6 kata data', function() {
         done();
       }
 
-      var invalidData = `${urlPrefix}/__all__.json`;
+      var invalidData = `${URL_PREFIX}/__all__.json`;
       new GroupedKata(invalidData).load(onError);
     });
   });
