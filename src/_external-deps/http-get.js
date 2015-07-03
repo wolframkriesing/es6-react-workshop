@@ -1,7 +1,7 @@
 import http from 'http';
 import url from 'url';
 
-export function loadFileOnServer(fileUrl, onLoaded) {
+export function loadRemoteFile(fileUrl, onLoaded) {
   var data = '';
   var options = url.parse(fileUrl);
   options.withCredentials = false;
