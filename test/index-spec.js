@@ -1,3 +1,4 @@
+/* global require */
 var assert = require('assert');
 
 describe('test setup', function() {
