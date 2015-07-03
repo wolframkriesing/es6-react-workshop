@@ -1,3 +1,5 @@
+/* global require, describe, it */
+
 var assert = require('assert');
 var katasUrl = 'http://katas.tddbin.com/katas/es6/language/__grouped__.json';
 
@@ -25,8 +27,9 @@ describe('load ES6 kata data', function() {
 
 function loadGroupedKata(katasUrl, onError, onSuccess) {
   function onLoaded(err, data) {
+    var parsed;
     try {
-      var parsed = JSON.parse(data);
+      parsed = JSON.parse(data);
     } catch (jsonParseError) {
       onError(jsonParseError);
     }
@@ -42,7 +45,6 @@ function loadGroupedKata(katasUrl, onError, onSuccess) {
 
 var http = require('http');
 var url = require('url');
-var path = require('path');
 
 function loadFileOnServer(fileUrl, onLoaded) {
   var data = '';
@@ -52,7 +54,7 @@ function loadFileOnServer(fileUrl, onLoaded) {
     res.on('data', function(chunk) {data += chunk;});
     res.on('end', function() {
       onLoaded(null, data);
-    })
+    });
   });
   request.on('error', function(e) { onLoaded(e); });
   request.end();
