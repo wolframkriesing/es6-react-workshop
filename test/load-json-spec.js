@@ -21,10 +21,15 @@ describe('load ES6 kata data', function() {
 
 function loadGroupedKata(katasUrl, onError, onSuccess) {
   function onLoaded(err, data) {
+    try {
+      var parsed = JSON.parse(data);
+    } catch (jsonParseError) {
+      onError(jsonParseError);
+    }  
     if (err) {
       onError(err);
     } else {
-      onSuccess(data);
+      onSuccess(parsed);
     }
   }
   loadFileOnServer(katasUrl, onLoaded);
@@ -42,8 +47,7 @@ function loadFileOnServer(fileUrl, onLoaded) {
   var request = http.request(options, function(res) {
     res.on('data', function(chunk) {data += chunk;});
     res.on('end', function() {
-      const parsed = JSON.parse(data);
-      onLoaded(null, parsed);
+      onLoaded(null, data);
     })
   });
   request.on('error', function(e) { onLoaded(e); });
