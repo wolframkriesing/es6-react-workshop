@@ -1,47 +1,51 @@
 /* global describe, it */
 
 import assert from 'assert';
-import {KATAS_URL, URL_PREFIX} from '../src/config.js';
 import GroupedKata from '../src/grouped-kata.js';
+
+function remoteFileLoaderWhichReturnsGivenData(data) {
+  return (url, onLoaded) => {
+    onLoaded(null, data);
+  };
+}
+function remoteFileLoaderWhichReturnsError(error) {
+  return (url, onLoaded) => {
+    onLoaded(error);
+  };
+}
 
 describe('load ES6 kata data', function() {
 
   it('loaded data are as expected', function(done) {
-    const loadRemoteFileStub = (url, onLoaded) => {
-      let validData = JSON.stringify({groups: {}});
-      onLoaded(null, validData);
-    };
     function onSuccess(groupedKatas) {
       assert.ok(groupedKatas);
       done();
     }
   
-    new GroupedKata(loadRemoteFileStub, KATAS_URL).load(() => {}, onSuccess);
+    const validData = JSON.stringify({groups: {}});
+    const loaderStub = remoteFileLoaderWhichReturnsGivenData(validData);
+    new GroupedKata(loaderStub, 'irrelevant url').load(() => {}, onSuccess);
   });
   describe('on error, call error callback and the error passed', function() {
     
     it('invalid JSON', function(done) {
-      const loadRemoteFileStub = (url, onLoaded) => {
-        onLoaded(new Error(''));
-      };
       function onError(err) {
         assert.ok(err);
         done();
       }
 
-      new GroupedKata(loadRemoteFileStub, '').load(onError);
+      const loaderStub = remoteFileLoaderWhichReturnsError(new Error(''));
+      new GroupedKata(loaderStub, 'irrelevant url').load(onError);
     });
     it('for invalid data', function(done) {
-      const invalidData = JSON.stringify({propertyGroupsMissing:{}});
-      const loadRemoteFileStub = (url, onLoaded) => {
-        onLoaded(null, invalidData);
-      };
       function onError(err) {
         assert.ok(err);
         done();
       }
 
-      new GroupedKata(loadRemoteFileStub, '').load(onError);
+      const invalidData = JSON.stringify({propertyGroupsMissing:{}});
+      const loaderStub = remoteFileLoaderWhichReturnsGivenData(invalidData);
+      new GroupedKata(loaderStub, 'irrelevant url').load(onError);
     });
   });
 });
