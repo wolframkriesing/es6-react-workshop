@@ -14,6 +14,7 @@
   "author": "Wolfram Kriesing, uxebu",
   "license": "MIT",
   "devDependencies": {
-    "mocha": "^2.2.5"
+    "mocha": "^2.2.5",
+    "jscs": "^1.13.1"
   }
 }
