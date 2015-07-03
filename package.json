@@ -16,6 +16,7 @@
   "license": "MIT",
   "devDependencies": {
     "mocha": "^2.2.5",
-    "jscs": "^1.13.1"
+    "jscs": "^1.13.1",
+    "jshint": "^2.8.0"
   }
 }
