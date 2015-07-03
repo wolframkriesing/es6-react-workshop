@@ -1,0 +1,16 @@
+{
+  "name": "es6-react-workshop",
+  "version": "1.0.0",
+  "description": "ES6+react.js workshop, es6katas page",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "es6",
+    "reactjs",
+    "es6katas"
+  ],
+  "author": "Wolfram Kriesing, uxebu",
+  "license": "MIT"
+}
