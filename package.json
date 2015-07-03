@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "ES6+react.js workshop, es6katas page",
   "main": "index.js",
+  "browser": {
+    "react": "./src/shim/react.js"
+  },
   "scripts": {
     "test": "npm run lint && mocha --compilers js:babel-core/register",
     "lint": "jscs test && jshint test",
