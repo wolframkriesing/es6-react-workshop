@@ -1,7 +1,7 @@
 /* global describe, it */
 
 import assert from 'assert';
-import GroupedKata from '../src/grouped-kata.js';
+import GroupedKata from '../src/grouped-katas.js';
 
 function remoteFileLoaderWhichReturnsGivenData(data) {
   return (url, onLoaded) => {
