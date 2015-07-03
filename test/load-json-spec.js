@@ -4,7 +4,7 @@ var assert = require('assert');
 var urlPrefix = 'http://katas.tddbin.com/katas/es6/language/';
 var katasUrl = urlPrefix + '__grouped__.json';
 
-var loadGroupedKata = require('../src/grouped-kata.js');
+var GroupedKata = require('../src/grouped-kata.js');
 
 describe('load ES6 kata data', function() {
   it('loaded data are as expected', function(done) {
@@ -13,7 +13,7 @@ describe('load ES6 kata data', function() {
       done();
     }
 
-    loadGroupedKata(katasUrl, function() {}, onSuccess);
+    new GroupedKata(katasUrl).load(function() {}, onSuccess);
   });
   describe('on error, call error callback and the error passed', function() {
     it('invalid JSON', function(done) {
@@ -23,7 +23,7 @@ describe('load ES6 kata data', function() {
       }
 
       var invalidUrl = urlPrefix;
-      loadGroupedKata(invalidUrl, onError);
+      new GroupedKata(invalidUrl).load(onError);
     });
     it('for invalid data', function(done) {
       function onError(err) {
@@ -32,7 +32,7 @@ describe('load ES6 kata data', function() {
       }
 
       var invalidData = urlPrefix + '__all__.json';
-      loadGroupedKata(invalidData, onError);
+      new GroupedKata(invalidData).load(onError);
     });
   });
 });

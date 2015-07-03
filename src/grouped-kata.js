@@ -1,23 +1,26 @@
 var loadFileOnServer = require('../src/server/http-get.js');
 
-function loadGroupedKata(katasUrl, onError, onSuccess) {
-  function onLoaded(err, data) {
-    var parsed;
-    try {
-      parsed = JSON.parse(data);
-    } catch (jsonParseError) {
-      onError(jsonParseError);
+function GroupedKata(katasUrl) {
+  
+  this.load = function(onError, onSuccess) {
+    function onLoaded(err, data) {
+      var parsed;
+      try {
+        parsed = JSON.parse(data);
+      } catch (jsonParseError) {
+        onError(jsonParseError);
+      }
+      if (err) {
+        onError(err);
+      } else if (!('groups' in parsed)) {
+        onError(new Error('No groups found in the data'));
+      } else {
+        onSuccess(parsed.groups);
+      }
     }
-    if (err) {
-      onError(err);
-    } else if (!('groups' in parsed)) {
-      onError(new Error('No groups found in the data'));
-    } else {
-      onSuccess(parsed.groups);
-    }
-  }
 
-  loadFileOnServer(katasUrl, onLoaded);
+    loadFileOnServer(katasUrl, onLoaded);
+  }
 }
 
-module.exports = loadGroupedKata;
+module.exports = GroupedKata;
