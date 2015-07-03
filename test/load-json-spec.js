@@ -1,10 +1,10 @@
-/* global require, describe, it */
+/* global describe, it */
 
 import assert from 'assert';
-var urlPrefix = 'http://katas.tddbin.com/katas/es6/language/';
-var katasUrl = urlPrefix + '__grouped__.json';
+const urlPrefix = 'http://katas.tddbin.com/katas/es6/language';
+const katasUrl = `${urlPrefix}/__grouped__.json`;
 
-var GroupedKata = require('../src/grouped-kata.js');
+import GroupedKata from '../src/grouped-kata.js';
 
 describe('load ES6 kata data', function() {
   it('loaded data are as expected', function(done) {
@@ -13,7 +13,7 @@ describe('load ES6 kata data', function() {
       done();
     }
 
-    new GroupedKata(katasUrl).load(function() {}, onSuccess);
+    new GroupedKata(katasUrl).load(() => {}, onSuccess);
   });
   describe('on error, call error callback and the error passed', function() {
     it('invalid JSON', function(done) {
@@ -31,7 +31,7 @@ describe('load ES6 kata data', function() {
         done();
       }
 
-      var invalidData = urlPrefix + '__all__.json';
+      var invalidData = `${urlPrefix}/__all__.json`;
       new GroupedKata(invalidData).load(onError);
     });
   });
