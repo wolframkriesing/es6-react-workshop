@@ -35,6 +35,7 @@ describe('load ES6 kata data', function() {
   });
 });
 
+var loadFileOnServer = require('../src/server/http-get.js');
 function loadGroupedKata(katasUrl, onError, onSuccess) {
   function onLoaded(err, data) {
     var parsed;
@@ -53,21 +54,4 @@ function loadGroupedKata(katasUrl, onError, onSuccess) {
   }
 
   loadFileOnServer(katasUrl, onLoaded);
-}
-
-var http = require('http');
-var url = require('url');
-
-function loadFileOnServer(fileUrl, onLoaded) {
-  var data = '';
-  var options = url.parse(fileUrl);
-  options.headers = {'User-Agent': ''}; // github wants a user agent header
-  var request = http.request(options, function(res) {
-    res.on('data', function(chunk) {data += chunk;});
-    res.on('end', function() {
-      onLoaded(null, data);
-    });
-  });
-  request.on('error', function(e) { onLoaded(e); });
-  request.end();
 }
