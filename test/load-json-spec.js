@@ -21,13 +21,13 @@ describe('load ES6 kata data', function() {
       assert.ok(groupedKatas);
       done();
     }
-  
+
     const validData = JSON.stringify({groups: {}});
     const loaderStub = remoteFileLoaderWhichReturnsGivenData(validData);
     new GroupedKata(loaderStub, 'irrelevant url').load(() => {}, onSuccess);
   });
   describe('on error, call error callback and the error passed', function() {
-    
+
     it('invalid JSON', function(done) {
       function onError(err) {
         assert.ok(err);
