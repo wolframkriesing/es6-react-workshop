@@ -6,15 +6,26 @@ assert.notCalled = sinon.assert.notCalled;
 assert.calledWith = sinon.assert.calledWith;
 
 describe('a URL change selects a certain kata group', function() {
-  
-  it('an empty query selects nothing', function() {
-    let kataGroups = new KataGroups();
-    sinon.stub(kataGroups, 'selectGroupByName');
-    
-    let url = '';
-    selectGroupByQuery(kataGroups, url);
-    
-    assert.notCalled(kataGroups.selectGroupByName);
+
+  describe('selects nothing', function() {
+    it('for an empty query', function() {
+      let kataGroups = new KataGroups();
+      sinon.stub(kataGroups, 'selectGroupByName');
+      
+      let url = '';
+      selectGroupByUrl(kataGroups, url);
+      
+      assert.notCalled(kataGroups.selectGroupByName);
+    });
+    it('for a hash without `kataGroup`', function() {
+      let kataGroups = new KataGroups();
+      sinon.stub(kataGroups, 'selectGroupByName');
+      
+      let url = 'http://nothing.com/#nokatagroup=bla';
+      selectGroupByUrl(kataGroups, url);
+      
+      assert.notCalled(kataGroups.selectGroupByName);
+    });
   });
 
   describe('select right kata group', function() {
@@ -23,7 +34,7 @@ describe('a URL change selects a certain kata group', function() {
       sinon.stub(kataGroups, 'selectGroupByName');
       
       let url = 'http://whatever.com/#kataGroup=x';
-      selectGroupByQuery(kataGroups, url);
+      selectGroupByUrl(kataGroups, url);
       
       assert.calledWith(kataGroups.selectGroupByName, 'x');
     });
@@ -33,7 +44,7 @@ describe('a URL change selects a certain kata group', function() {
       sinon.stub(kataGroups, 'selectGroupByName');
       
       let url = 'http://whatever.com/#kataGroup=kata%20name';
-      selectGroupByQuery(kataGroups, url);
+      selectGroupByUrl(kataGroups, url);
       
       assert.calledWith(kataGroups.selectGroupByName, 'kata name');
     });
@@ -41,11 +52,19 @@ describe('a URL change selects a certain kata group', function() {
   
 });
 
-import {parse as parseUrl} from 'url';
-import {parse as parseQuerystring} from 'querystring';
-function selectGroupByQuery(kataGroups, url) {
-  if (url) {
-    const kataGroupName = parseQuerystring(parseUrl(url).hash.replace(/^#/, '')).kataGroup
+function selectGroupByUrl(kataGroups, url) {
+  const kataGroupName = urlHashAsObject(url).kataGroup;
+  if (kataGroupName) {
     kataGroups.selectGroupByName(kataGroupName);
   }
+}
+
+import {parse as parseUrl} from 'url';
+import {parse as parseQuerystring} from 'querystring';
+function urlHashAsObject(url) {
+  const parsedUrl = parseUrl(url);
+  if (parsedUrl && parsedUrl.hash) {
+    return parseQuerystring(parsedUrl.hash.replace(/^#/, ''));
+  }
+  return {};
 }
