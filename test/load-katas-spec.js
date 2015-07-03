@@ -63,11 +63,16 @@ describe('prepare kata data for rendering', function() {
   }
 
   describe('a group', function() {
-    it('becomes a KataGroup', function() {
-      processRawData({groups: {'group one': {items: [{name: 'jojo', path: 'some'}]}}});
-      
-      assert.equal(kataGroups[0] instanceof KataGroup, true);
+    
+    const groupName = 'group one';
+    let firstGroup;
+    beforeEach(function() {
+      processRawData({groups: {[groupName]: {items: [{name: 'jojo', path: 'some'}]}}});
+      firstGroup = kataGroups[0];
     });
+    it('becomes a KataGroup', () => {assert.equal(firstGroup instanceof KataGroup, true)});
+    it('has the name of the kata group', () => {assert.equal(firstGroup.name, groupName)});
+    it('has a katasCount', () => {assert.equal(firstGroup.katasCount, 1)});
   });
   it('a group without items ...', function() {
     //processRawData({groups: {'group one': {items: []}}});
@@ -75,10 +80,12 @@ describe('prepare kata data for rendering', function() {
 });
 
 function process(rawGroups) {
-  return Object.keys(rawGroups).map(groupName => new KataGroup(groupName));
+  return Object.keys(rawGroups).map(groupName => new KataGroup(groupName, rawGroups[groupName].items));
 }
 
 class KataGroup {
-  constructor(name) {
+  constructor(name, items) {
+    this.name = name;
+    this.katasCount = items.length;
   }
 }
