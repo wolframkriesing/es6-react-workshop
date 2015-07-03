@@ -1,6 +1,6 @@
 /* global require, describe, it */
 
-var assert = require('assert');
+import assert from 'assert';
 var urlPrefix = 'http://katas.tddbin.com/katas/es6/language/';
 var katasUrl = urlPrefix + '__grouped__.json';
 
