@@ -12,5 +12,8 @@
     "es6katas"
   ],
   "author": "Wolfram Kriesing, uxebu",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "^2.2.5"
+  }
 }
