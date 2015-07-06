@@ -6,10 +6,10 @@ describe('kata groups (data for rendering)', function() {
   let kataGroups;
   const groupName = 'group one';
   const kataName = 'jojo';
-  const secondKataId = 23;
+  const secondKataId = '23';
   const secondKataName = 'second kata';
   const katas = [
-    {name: kataName, path: 'some', id: 42},
+    {name: kataName, path: 'some', id: '42'},
     {name: secondKataName, path: 'some2', id: secondKataId}
   ];
   

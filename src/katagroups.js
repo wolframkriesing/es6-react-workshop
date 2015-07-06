@@ -21,8 +21,8 @@ export default class KataGroups {
     const katasWithKataId = this.groups
       .map(({katas}) => katas) // extract all katas, which are still arrays
       .reduce((katas, all = []) => all.concat(katas)) // flatten the katas
-      .filter(kata => kata.id == kataId); // find the one with the id we want
-    if (katasWithKataId.length == 1) {
+      .filter(kata => kata.id === kataId); // find the one with the id we want
+    if (katasWithKataId.length === 1) {
       this.selectedKata = katasWithKataId[0];
     }
   }
