@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "npm run lint && mocha --compilers js:babel-core/register",
-    "lint": "jscs test && jshint test",
+    "lint": "eslint src && eslint test",
     "build:app": "browserify src/index.js --outfile=dist/index.min.js --transform=babelify",
     "build:html": "cp src/index.html dist",
     "build:css": "cp -R vendor/pure-layout-email/css dist; cp -R vendor/pure-layout-email/img dist",
@@ -28,8 +28,6 @@
   "license": "MIT",
   "devDependencies": {
     "mocha": "^2.2.5",
-    "jscs": "^1.13.1",
-    "jshint": "^2.8.0",
     "babel-core": "^5.6.15",
     "browserify": "^10.2.4",
     "babelify": "^6.1.2",
@@ -37,6 +35,8 @@
     "chokidar-cli": "^0.3.0",
     "chokidar": "^1.0.3",
     "sinon": "^1.15.4",
-    "parallelshell": "^1.2.0"
+    "parallelshell": "^1.2.0",
+    "eslint": "^0.24.0",
+    "eslint-plugin-react": "^2.6.4"
   }
 }
