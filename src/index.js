@@ -13,8 +13,8 @@ new RawKataData(loadRemoteFile, KATAS_URL).load(() => {}, (rawKataData) => {
   urlChanged(window.location.href);
 });
 
-function rerender(kataGroups) {
-  React.render(<Page kataGroups={kataGroups}/>, document.getElementById('app'));
+function rerender(kataGroups_) {
+  React.render(<Page kataGroups={kataGroups_}/>, document.getElementById('app'));
 }
 
 function urlChanged(url) {

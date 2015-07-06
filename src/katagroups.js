@@ -6,7 +6,7 @@ export default class KataGroups {
       .map(groupName => new KataGroup(groupName, rawGroups[groupName].items));
     return kataGroups;
   }
-  
+
   selectGroupByName(nameToSelect) {
     this.groups.some(group => {
       if (group.name === nameToSelect) {
@@ -15,7 +15,7 @@ export default class KataGroups {
       }
     });
   }
-  
+
   selectKataById(kataId) {
     this.resetSelectedKata();
     const katasWithKataId = this.groups
@@ -26,11 +26,11 @@ export default class KataGroups {
       this.selectedKata = katasWithKataId[0];
     }
   }
-  
+
   resetSelectedKata() {
     this.selectedKata = void 0;
   }
-  
+
 }
 
 class KataGroup {

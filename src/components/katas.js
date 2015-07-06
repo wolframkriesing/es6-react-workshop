@@ -7,7 +7,7 @@ export default class Katas extends React.Component {
       <div id="list" className="pure-u-1">
         {katas.map(kata => <KataLink kata={kata} />)}
       </div>
-    )
+    );
   }
 }
 

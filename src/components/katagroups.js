@@ -20,7 +20,7 @@ export default class KataGroups extends React.Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 

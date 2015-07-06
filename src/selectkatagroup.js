@@ -5,7 +5,6 @@ export default class SelectKataGroup {
       kataGroups.selectGroupByName(kataGroupName);
     }
   }
-  
 }
 
 import {parse as parseUrl} from 'url';

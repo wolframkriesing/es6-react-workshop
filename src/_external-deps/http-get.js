@@ -6,7 +6,7 @@ export function loadRemoteFile(fileUrl, onLoaded) {
   var options = url.parse(fileUrl);
   options.withCredentials = false;
   var request = http.request(options, function(res) {
-    res.on('data', function(chunk) {data += chunk;});
+    res.on('data', function(chunk) { data += chunk; });
     res.on('end', function() {
       onLoaded(null, data);
     });

@@ -3,7 +3,7 @@ export default class RawKataData{
     this.katasUrl = katasUrl;
     this.loadRemoteFile = loadRemoteFile;
   }
-  
+
   load(onError, onSuccess) {
     const onLoaded = (err, data) => {
       var parsed;
@@ -24,5 +24,4 @@ export default class RawKataData{
 
     this.loadRemoteFile(this.katasUrl, onLoaded);
   }
-  
 }
