@@ -10,10 +10,14 @@
     "test": "npm run lint && mocha --compilers js:babel-core/register",
     "lint": "jscs test && jshint test",
     "build:app": "browserify src/index.js --outfile=dist/index.min.js --transform=babelify",
-    "build:html": "cp src/index.html dist; cp -R vendor/pure-layout-email/css dist; cp -R vendor/pure-layout-email/img dist",
-    "build": "mkdir -p dist; npm test && npm run build:app && npm run build:html",
+    "build:html": "cp src/index.html dist",
+    "build:css": "cp -R vendor/pure-layout-email/css dist; cp -R vendor/pure-layout-email/img dist",
+    "build": "mkdir -p dist; npm test && npm run build:app && npm run build:html && npm run build:css",
     "watch:build": "chokidar 'src' -c 'npm run build'",
-    "watch:build:app": "chokidar 'src' -c 'npm run build:app'"
+    "watch:build:app": "chokidar 'src' -c 'npm run build:app'",
+    "watch:build:html": "chokidar 'src/index.html' -c 'npm run build:html'",
+    "watch:build:css": "chokidar 'vendor/' -c 'npm run build:html'",
+    "watch:dev": "npm run build; parallelshell 'npm run watch:build:app' 'npm run watch:build:html' 'npm run watch:build:css'"
   },
   "keywords": [
     "es6",
@@ -32,6 +36,7 @@
     "react": "^0.13.3",
     "chokidar-cli": "^0.3.0",
     "chokidar": "^1.0.3",
-    "sinon": "^1.15.4"
+    "sinon": "^1.15.4",
+    "parallelshell": "^1.2.0"
   }
 }
