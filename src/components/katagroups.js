@@ -13,7 +13,7 @@ export default class KataGroups extends React.Component {
               <li className="pure-menu-heading">Kata groups</li>
               <li className="pure-menu-item">
               </li>
-              {kataGroups.map(kataGroup => <li className="pure-menu-item">
+              {kataGroups.groups.map(kataGroup => <li className="pure-menu-item">
                 <a href={`#kataGroup=${encodeURIComponent(kataGroup.name)}`} className="pure-menu-link">{kataGroup.name} <span className="email-count">({kataGroup.katasCount})</span></a>
               </li>)}
             </ul>
@@ -24,3 +24,7 @@ export default class KataGroups extends React.Component {
   }
 }
 
+import {default as KataGroupsData} from '../katagroups.js';
+KataGroups.propTypes = {
+  kataGroups: React.PropTypes.instanceOf(KataGroupsData).isRequired
+};
