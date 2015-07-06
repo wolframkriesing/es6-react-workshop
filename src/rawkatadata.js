@@ -1,3 +1,16 @@
+function verifyData(data, onError, onSuccess) {
+  try {
+    const parsed = JSON.parse(data);
+    if (!('groups' in parsed)) {
+      onError(new Error('No groups found in the data'));
+      return;
+    }
+    onSuccess(parsed.groups);
+  } catch (jsonParseError) {
+    onError(jsonParseError);
+  }
+}
+
 export default class RawKataData{
   constructor(loadRemoteFile, katasUrl){
     this.katasUrl = katasUrl;
@@ -5,21 +18,12 @@ export default class RawKataData{
   }
 
   load(onError, onSuccess) {
-    const onLoaded = (err, data) => {
-      var parsed;
-      try {
-        parsed = JSON.parse(data);
-      } catch (jsonParseError) {
-        onError(jsonParseError);
+    const onLoaded = (error, data) => {
+      if (error) {
+        onError(error);
         return;
       }
-      if (err) {
-        onError(err);
-      } else if (!('groups' in parsed)) {
-        onError(new Error('No groups found in the data'));
-      } else {
-        onSuccess(parsed.groups);
-      }
+      verifyData(data, onError, onSuccess);
     };
 
     this.loadRemoteFile(this.katasUrl, onLoaded);
