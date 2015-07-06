@@ -6,11 +6,11 @@ import Kata from './kata.js';
 
 export default class Page extends React.Component {
   render() {
-    const {groups, selectedGroup} = this.props.kataGroups;
+    const {groups, selectedGroup=groups[0]} = this.props.kataGroups;
     return <div>
       <div id="layout" className="content pure-g">
         <KataGroups kataGroups={groups}/>
-        <Katas kataGroup={selectedGroup || groups[0]} />
+        <Katas kataGroup={selectedGroup} />
         <Kata />
     </div>
     </div>;
