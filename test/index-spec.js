@@ -1,5 +1,5 @@
-/* global require, describe, it */
-var assert = require('assert');
+/* global describe, it */
+import assert from 'assert';
 
 describe('test setup', function() {
   it('works', function() {

@@ -4,7 +4,7 @@ import KataGroups from '../src/katagroups.js';
 describe('kata groups (data for rendering)', function() {
 
   const groupName = 'group one';
-  
+
   describe('a group', function() {
     let kataGroups;
     let firstGroup;
@@ -16,15 +16,15 @@ describe('kata groups (data for rendering)', function() {
       kataGroups = KataGroups.fromRawKataData(rawData);
       firstGroup = kataGroups.groups[0];
     });
-    
-    it('has the name of the kata group', () => {assert.equal(firstGroup.name, groupName)});
-    it('has a katasCount', () => {assert.equal(firstGroup.katasCount, 1)});
-    it('has all katas', () => {assert.deepEqual(firstGroup.katas, katas)});
+
+    it('has the name of the kata group', () => {assert.equal(firstGroup.name, groupName); });
+    it('has a katasCount', () => {assert.equal(firstGroup.katasCount, 1); });
+    it('has all katas', () => {assert.deepEqual(firstGroup.katas, katas); });
   });
   it('a group without items ...', function() {
     //processRawData({groups: {'group one': {items: []}}});
   });
-  
+
   describe('select', function() {
     let kataGroups;
     const secondKataId = '23';
@@ -37,7 +37,7 @@ describe('kata groups (data for rendering)', function() {
       const rawData = {[groupName]: {items: katas}};
       kataGroups = KataGroups.fromRawKataData(rawData);
     });
-    
+
     describe('a kata group', function() {
       it('by name', function() {
         kataGroups.selectGroupByName(groupName);
@@ -49,16 +49,16 @@ describe('kata groups (data for rendering)', function() {
         kataGroups.selectKataById(secondKataId);
         assert.equal(kataGroups.selectedKata.name, secondKataName);
       });
-      describe('when ID is invalid', function() {
-        it('dont fail', function() {
-          const fn = () => { kataGroups.selectKataById(-1); };
-          assert.doesNotThrow(fn);
-        });
-        it('`selectedKata` is undefined', function() {
-          kataGroups.selectKataById(-1);
-          assert.equal(kataGroups.selectedKata, void 0);
-        });
+    });
+    describe('when a kata ID is invalid', function() {
+      it('dont fail', function() {
+        const fn = () => { kataGroups.selectKataById(-1); };
+        assert.doesNotThrow(fn);
+      });
+      it('`selectedKata` is undefined', function() {
+        kataGroups.selectKataById(-1);
+        assert.equal(kataGroups.selectedKata, void 0);
       });
     });
   });
-});  
+});

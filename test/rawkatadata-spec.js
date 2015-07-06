@@ -55,7 +55,7 @@ describe('load ES6 kata data', function() {
     });
     describe('for invalid data', function() {
       function load(onError, onSuccess=noop) {
-        const invalidData = JSON.stringify({propertyGroupsMissing:{}});
+        const invalidData = JSON.stringify({propertyGroupsMissing: {}});
         const loaderStub = remoteFileLoaderWhichReturnsGivenData(invalidData);
         new RawKataData(loaderStub, 'irrelevant url').load(onError, onSuccess);
       }
@@ -70,6 +70,6 @@ describe('load ES6 kata data', function() {
         assert.notCalled(onSuccess);
       });
     });
-    
+
   });
 });
