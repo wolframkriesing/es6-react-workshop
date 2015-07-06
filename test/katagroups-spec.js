@@ -3,19 +3,14 @@ import KataGroups from '../src/katagroups.js';
 
 describe('kata groups (data for rendering)', function() {
 
-  let kataGroups;
   const groupName = 'group one';
-  const kataName = 'jojo';
-  const secondKataId = '23';
-  const secondKataName = 'second kata';
-  const katas = [
-    {name: kataName, path: 'some', id: '42'},
-    {name: secondKataName, path: 'some2', id: secondKataId}
-  ];
   
   describe('a group', function() {
-    
+    let kataGroups;
     let firstGroup;
+    const katas = [
+      {name: 'jojo', path: 'some', id: '42'}
+    ];
     beforeEach(function() {
       const rawData = {[groupName]: {items: katas}};
       kataGroups = KataGroups.fromRawKataData(rawData);
@@ -23,15 +18,26 @@ describe('kata groups (data for rendering)', function() {
     });
     
     it('has the name of the kata group', () => {assert.equal(firstGroup.name, groupName)});
-    it('has a katasCount', () => {assert.equal(firstGroup.katasCount, 2)});
+    it('has a katasCount', () => {assert.equal(firstGroup.katasCount, 1)});
     it('has all katas', () => {assert.deepEqual(firstGroup.katas, katas)});
-    
   });
   it('a group without items ...', function() {
     //processRawData({groups: {'group one': {items: []}}});
   });
   
   describe('select', function() {
+    let kataGroups;
+    const secondKataId = '23';
+    const secondKataName = 'second kata';
+    const katas = [
+      {name: 'jojo', path: 'some', id: '42'},
+      {name: secondKataName, path: 'some2', id: secondKataId}
+    ];
+    beforeEach(function() {
+      const rawData = {[groupName]: {items: katas}};
+      kataGroups = KataGroups.fromRawKataData(rawData);
+    });
+    
     describe('a kata group', function() {
       it('by name', function() {
         kataGroups.selectGroupByName(groupName);
