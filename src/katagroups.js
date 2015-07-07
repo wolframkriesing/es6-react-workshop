@@ -33,7 +33,7 @@ export default class KataGroups {
 
 }
 
-class KataGroup {
+export class KataGroup {
   constructor(name, items) {
     this.name = name;
     this.katasCount = items.length;
