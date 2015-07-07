@@ -1,4 +1,5 @@
 import assert from 'assert';
+import React from 'react'; // eslint-disable-line no-unused-vars
 import Page from '../../src/components/page.js';
 import KataGroups from '../../src/katagroups.js';
 import {default as KataGroupsComponent} from '../../src/components/katagroups.js';
