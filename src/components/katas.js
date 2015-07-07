@@ -1,6 +1,12 @@
 import React from 'react';
+import {KataGroup} from '../katagroups.js';
 
 export default class Katas extends React.Component {
+  
+  static propTypes = {
+    kataGroup: React.PropTypes.instanceOf(KataGroup).isRequired
+  };
+  
   render() {
     const {katas} = this.props.kataGroup;
     return (
@@ -11,7 +17,7 @@ export default class Katas extends React.Component {
   }
 }
 
-class KataLink extends React.Component {
+export class KataLink extends React.Component {
   render() {
     const {id, name, description} = this.props.kata;
     const urlWithoutKataId = window.location.href.replace(/&kataId=\d+$/, '');
