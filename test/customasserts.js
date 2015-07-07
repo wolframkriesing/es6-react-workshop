@@ -1,6 +1,6 @@
 import assert from 'assert';
-const TestUtils = React.addons.TestUtils;
 import React from 'react/addons';
+const TestUtils = React.addons.TestUtils;
 
 export function hasChildOfType(componentToRender, type) {
   const shallowRenderer = TestUtils.createRenderer();
