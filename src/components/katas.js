@@ -2,11 +2,11 @@ import React from 'react';
 import {KataGroup} from '../katagroups.js';
 
 export default class Katas extends React.Component {
-  
+
   static propTypes = {
     kataGroup: React.PropTypes.instanceOf(KataGroup).isRequired
   };
-  
+
   render() {
     const {katas} = this.props.kataGroup;
     return (
