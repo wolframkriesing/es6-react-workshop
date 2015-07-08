@@ -1,6 +1,5 @@
 import assert from 'assert';
 import React from 'react';
-import sinon from 'sinon';
 import {hasSubComponentOfType, hasSubComponentOfTypeWithProps} from '../customasserts.js';
 
 import Page from '../../src/components/page.js';
@@ -11,12 +10,6 @@ import {default as KataGroupsData} from '../../src/katagroups.js';
 
 assert.hasSubComponentOfType = hasSubComponentOfType;
 assert.hasSubComponentOfTypeWithProps = hasSubComponentOfTypeWithProps;
-assert.called = sinon.assert.called;
-assert.calledWith = sinon.assert.calledWith;
-
-assert.renderedIntoDomNode = function(renderFunction, domNode) {
-  assert.equal(renderFunction.firstCall.args[1], domNode);
-};
 
 describe('page component', function() {
 
