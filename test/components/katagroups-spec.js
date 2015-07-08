@@ -2,15 +2,8 @@ import assert from 'assert';
 import React from 'react/addons';
 const TestUtils = React.addons.TestUtils;
 
-import {hasSubComponentOfType, hasSubComponentOfTypeWithProps} from '../customasserts.js';
-
 import KataGroupsComponent from '../../src/components/katagroups.js';
-import KatasComponent from '../../src/components/katas.js';
-import KataComponent from '../../src/components/kata.js';
 import KataGroups from '../../src/katagroups.js';
-
-assert.hasSubComponentOfType = hasSubComponentOfType;
-assert.hasSubComponentOfTypeWithProps = hasSubComponentOfTypeWithProps;
 
 describe('KataGroupsComponent', function() {
 
