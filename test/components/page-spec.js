@@ -38,14 +38,15 @@ describe('page component', function() {
       let kataGroups = KataGroupsData.fromRawKataData(rawKataData);
       kataGroups.selectGroupByName(groupName);
 
-      assert.hasSubComponentOfTypeWithProps(<Page kataGroups={kataGroups}/>, Katas, {kataGroup: kataGroups.selectedGroup});
+      var expectedProps = {kataGroup: kataGroups.selectedGroup};
+      assert.hasSubComponentOfTypeWithProps(<Page kataGroups={kataGroups}/>, Katas, expectedProps);
     });
-    it('if no selectedGroup exists receives the first group from the KataGroupsData instance', function() {
+    it('if no selectedGroup exists receives the firstGroup from the KataGroupsData instance', function() {
       const rawKataData = {'first group': {items: []}, 'second group': {items: []}};
       let kataGroups = KataGroupsData.fromRawKataData(rawKataData);
-      let selectedGroup = kataGroups.firstGroup;
 
-      assert.hasSubComponentOfTypeWithProps(<Page kataGroups={kataGroups}/>, Katas, {kataGroup: selectedGroup});
+      var expectedProps = {kataGroup: kataGroups.firstGroup};
+      assert.hasSubComponentOfTypeWithProps(<Page kataGroups={kataGroups}/>, Katas, expectedProps);
     });
   });
 });
