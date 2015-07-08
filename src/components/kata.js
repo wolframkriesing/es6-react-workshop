@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class Kata extends React.Component {
+export default class KataComponent extends React.Component {
   render() {
     return (
       <div id="main" className="pure-u-1">

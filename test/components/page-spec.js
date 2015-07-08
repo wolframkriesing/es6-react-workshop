@@ -1,11 +1,12 @@
 import assert from 'assert';
 import React from 'react';
-import {addons} from 'react/addons';
 import sinon from 'sinon';
 import {hasSubComponentOfType, hasSubComponentOfTypeWithProps} from '../customasserts.js';
 
 import Page from '../../src/components/page.js';
-import {default as KatasComponent} from '../../src/components/katas.js';
+import KataGroupsComponent from '../../src/components/katagroups.js';
+import KatasComponent from '../../src/components/katas.js';
+import KataComponent from '../../src/components/kata.js';
 import {default as KataGroupsData} from '../../src/katagroups.js';
 
 assert.hasSubComponentOfType = hasSubComponentOfType;
@@ -21,12 +22,21 @@ describe('page component', function() {
 
   describe('uses components', function() {
 
-    it('the Katas component', function() {
+    let component;
+    beforeEach(function() {
       const groupName = 'kata group name';
       const rawKataData = {[groupName]: {items: []}};
       let kataGroups = KataGroupsData.fromRawKataData(rawKataData);
-
-      assert.hasSubComponentOfType(<Page kataGroups={kataGroups}/>, KatasComponent);
+      component = <Page kataGroups={kataGroups}/>;
+    });
+    it('KataGroups', function() {
+      assert.hasSubComponentOfType(component, KataGroupsComponent);
+    });
+    it('Katas', function() {
+      assert.hasSubComponentOfType(component, KatasComponent);
+    });
+    it('Kata', function() {
+      assert.hasSubComponentOfType(component, KataComponent);
     });
 
   });
