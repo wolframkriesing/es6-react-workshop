@@ -20,6 +20,10 @@ describe('kata groups (data for rendering)', function() {
     it('has the name of the kata group', () => {assert.equal(firstGroup.name, defaultGroupName); });
     it('has a katasCount', () => {assert.equal(firstGroup.katasCount, 1); });
     it('has all katas', () => {assert.strictEqual(firstGroup.katas, katas); });
+    it('has the right URL, url encoded', () => {
+      render('to / be % encoded');
+      assert.strictEqual(firstGroup.url, '#kataGroup=to%20%2F%20be%20%25%20encoded'); 
+    });
   });
   it('a group without items ...', function() {
     //processRawData({groups: {'group one': {items: []}}});
