@@ -20,7 +20,8 @@ export default class KatasComponent extends React.Component {
 export class KataLinkComponent extends React.Component {
   render() {
     const {id, name, description} = this.props.kata;
-    const urlWithoutKataId = window.location.href.replace(/&kataId=\d+$/, '');
+    //const urlWithoutKataId = window.location.href.replace(/&kataId=\d+$/, '');
+    const urlWithoutKataId = '???';
     const newUrl = `${urlWithoutKataId}&kataId=${id}`;
     return (
       <div className="email-item pure-g">
