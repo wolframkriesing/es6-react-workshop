@@ -2,13 +2,13 @@ import assert from 'assert';
 import React from 'react';
 import {addons} from 'react/addons';
 import sinon from 'sinon';
-import {hasChildOfType} from '../customasserts.js';
+import {hasSubComponentOfType} from '../customasserts.js';
 
 import Page from '../../src/components/page.js';
 import Katas from '../../src/components/katas.js';
 import {default as KataGroupsData} from '../../src/katagroups.js';
 
-assert.hasChildOfType = hasChildOfType;
+assert.hasSubComponentOfType = hasSubComponentOfType;
 assert.called = sinon.assert.called;
 assert.calledWith = sinon.assert.calledWith;
 
@@ -27,7 +27,7 @@ describe('page component', function() {
       const rawKataData = {[groupName]: {items: []}};
       let kataGroups = KataGroupsData.fromRawKataData(rawKataData);
 
-      assert.hasChildOfType(<Page kataGroups={kataGroups}/>, Katas);
+      assert.hasSubComponentOfType(<Page kataGroups={kataGroups}/>, Katas);
     });
 
   });

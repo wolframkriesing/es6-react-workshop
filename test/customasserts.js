@@ -2,7 +2,7 @@ import assert from 'assert';
 import React from 'react/addons';
 const TestUtils = React.addons.TestUtils;
 
-export function hasChildOfType(componentToRender, type) {
+export function hasSubComponentOfType(componentToRender, type) {
   const shallowRenderer = TestUtils.createRenderer();
   shallowRenderer.render(componentToRender);
 
