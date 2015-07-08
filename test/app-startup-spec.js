@@ -1,5 +1,5 @@
 import assert from 'assert';
-import AppStartup from '../../src/app-startup.js';
+import AppStartup from '../src/app-startup.js';
 import React from 'react';
 import {addons} from 'react/addons';
 import sinon from 'sinon';
