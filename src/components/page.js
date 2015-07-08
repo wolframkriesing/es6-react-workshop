@@ -2,7 +2,7 @@ import React from 'react';
 
 import KataGroupsComponent from './katagroups';
 import KatasComponent from './katas.js';
-import Kata from './kata.js';
+import KataComponent from './kata.js';
 
 export default class PageComponent extends React.Component {
   render() {
@@ -12,7 +12,7 @@ export default class PageComponent extends React.Component {
       <div id="layout" className="content pure-g">
         <KataGroupsComponent kataGroups={kataGroups}/>
         <KatasComponent kataGroup={selectedGroup} />
-        <Kata />
+        <KataComponent />
       </div>
     );
   }
