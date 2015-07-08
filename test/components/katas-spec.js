@@ -7,6 +7,21 @@ import KataGroups from '../../src/katagroups.js';
 
 describe('KatasComponent', function() {
 
+  assert.rendersDomNodeAttributeWithValue = function(component, attribute, expectedValue) {
+    let output = render(component);
+    let firstKata = render(output.props.children[0]).props.children.props;
+    assert.equal(firstKata[attribute], expectedValue);
+  };
+  assert.rendersDomNodeWithInnerText = function(componentToRender, text) {
+    let output = render(render(componentToRender).props.children[0]);
+    let matches = output.props.children.props.children
+      .map(({props: {children}}) => children)
+      .filter(content => content === text)
+    ;
+    var message = `Expected \`${componentToRender.type.name}\` to render a DOM node with innerText \`${text}\``;
+    assert.equal(matches.length > 0, true, message);
+  };
+
   let component;
   let kataGroup;
   var kataName = 'kata name';
@@ -31,18 +46,12 @@ describe('KatasComponent', function() {
     assert.equal(renderedKatas.length, 1);
   });
   it('render the `name`', function() {
-    let output = render(component);
-    let firstKata = render(output.props.children[0]).props.children.props.children[0].props.children;
-    assert.equal(firstKata, kataName);
+    assert.rendersDomNodeWithInnerText(component, kataName);
   });
   it('render the `description`', function() {
-    let output = render(component);
-    let firstKata = render(output.props.children[0]).props.children.props.children[1].props.children;
-    assert.equal(firstKata, description);
+    assert.rendersDomNodeWithInnerText(component, description);
   });
   it('render the URL properly', function() {
-    let output = render(component);
-    let firstKata = render(output.props.children[0]).props.children.props;
-    assert.equal(firstKata.href, '???&kataId=1');
+    assert.rendersDomNodeAttributeWithValue(component, 'href', '???&kataId=1');
   });
 });
