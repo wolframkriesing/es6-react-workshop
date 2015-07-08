@@ -4,25 +4,27 @@ import KataGroups from '../src/katagroups.js';
 describe('kata groups (data for rendering)', function() {
 
   describe('a group', function() {
-    const defaultGroupName = 'group one';
     let firstGroup;
     const katas = [
       {name: 'jojo', path: 'some', id: '42'}
     ];
 
-    function render(groupName = defaultGroupName) {
+    function createKataGroups(groupName = 'group one') {
       const rawData = {[groupName]: {items: katas}};
       let kataGroups = KataGroups.fromRawKataData(rawData);
       firstGroup = kataGroups.groups[0];
     }
-    beforeEach(render);
-
-    it('has the name of the kata group', () => {assert.equal(firstGroup.name, defaultGroupName); });
+    beforeEach(createKataGroups);
+    it('has the name of the kata group', () => {
+      var groupName = 'group name';
+      createKataGroups(groupName);
+      assert.equal(firstGroup.name, groupName);
+    });
     it('has a katasCount', () => {assert.equal(firstGroup.katasCount, 1); });
     it('has all katas', () => {assert.strictEqual(firstGroup.katas, katas); });
     it('has the right URL, url encoded', () => {
-      render('to / be % encoded');
-      assert.strictEqual(firstGroup.url, '#kataGroup=to%20%2F%20be%20%25%20encoded'); 
+      createKataGroups('to / be % encoded');
+      assert.strictEqual(firstGroup.url, '#kataGroup=to%20%2F%20be%20%25%20encoded');
     });
   });
   it('a group without items ...', function() {
@@ -46,11 +48,11 @@ describe('kata groups (data for rendering)', function() {
     let kataGroups;
     const secondKataId = '23';
     const secondKataName = 'second kata';
-    const katas = [
-      {name: 'jojo', path: 'some', id: '42'},
-      {name: secondKataName, path: 'some2', id: secondKataId}
-    ];
     beforeEach(function() {
+      const katas = [
+        {name: 'jojo', path: 'some', id: '42'},
+        {name: secondKataName, path: 'some2', id: secondKataId}
+      ];
       const rawData = {[groupName]: {items: katas}};
       kataGroups = KataGroups.fromRawKataData(rawData);
     });

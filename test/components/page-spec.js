@@ -1,5 +1,5 @@
 import assert from 'assert';
-import React from 'react';
+import React from 'react'; // eslint-disable-line no-unused-vars
 import {hasSubComponentOfType, hasSubComponentOfTypeWithProps} from '../customasserts.js';
 
 import PageComponent from '../../src/components/page.js';

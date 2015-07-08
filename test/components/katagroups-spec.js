@@ -15,9 +15,9 @@ describe('KataGroupsComponent', function() {
     kataGroups = KataGroups.fromRawKataData(rawKataData);
     component = <KataGroupsComponent kataGroups={kataGroups}/>;
   });
-  function render(component) {
+  function render(componentToRender) {
     const shallowRenderer = TestUtils.createRenderer();
-    shallowRenderer.render(component);
+    shallowRenderer.render(componentToRender);
     return shallowRenderer.getRenderOutput();
   }
   it('renders as many kata groups as there are', function() {
