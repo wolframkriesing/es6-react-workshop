@@ -12,7 +12,7 @@ export default class Page extends React.Component {
 
   render() {
     const {kataGroups} = this.props;
-    const {selectedGroup=kataGroups[0]} = kataGroups;
+    const {selectedGroup = kataGroups.firstGroup} = kataGroups;
     return <div>
       <div id="layout" className="content pure-g">
         <KataGroups kataGroups={kataGroups}/>
