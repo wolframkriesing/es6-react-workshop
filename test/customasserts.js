@@ -4,11 +4,9 @@ const TestUtils = React.addons.TestUtils;
 
 export function hasSubComponentOfType(componentToRender, expectedComponent) {
   var output = render(componentToRender);
-  let components = output.props.children.props.children;
-  assert.equal(components
-    .map(component => TestUtils.isElementOfType(component, expectedComponent))
-    .some(value => value)
-  , true, `Expected type to be ${expectedComponent}.`);
+  const components = componentsOfType(output.props.children.props.children, expectedComponent);
+  var errorMessage = `Expected \`${componentToRender.type.name}\` to have a sub component \`${expectedComponent.name}\`.`;
+  assert.equal(components.length, 1, errorMessage);
 }
 
 export function hasSubComponentOfTypeWithProps(componentToRender, type, expectedProps) {
