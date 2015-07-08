@@ -19,7 +19,7 @@ describe('app startup', function() {
 
   function render(data={}) {
     const shallowRenderer = TestUtils.createRenderer();
-    let app = new AppStartup(ComponentDouble, shallowRenderer);
+    let app = new AppStartup(ComponentDouble, shallowRenderer.render.bind(shallowRenderer));
     app.renderClientSide(data);
     rendererOutput = shallowRenderer.getRenderOutput();
   }

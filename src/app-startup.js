@@ -1,13 +1,13 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 
 export default class AppStartup {
-  constructor(PageComponent, renderer) {
+  constructor(PageComponent, renderFunction) {
     this.PageComponent = PageComponent;
-    this.renderer = renderer;
+    this.renderFunction = renderFunction;
   }
   renderClientSide(kataGroups, appDomNode) {
     const PageComponent = this.PageComponent;
-    this.renderer.render(<PageComponent kataGroups={kataGroups}/>, appDomNode);
+    this.renderFunction(<PageComponent kataGroups={kataGroups}/>, appDomNode);
   }
 }
 
