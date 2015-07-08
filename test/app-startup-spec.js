@@ -16,7 +16,7 @@ const TestUtils = addons.TestUtils;
 
 describe('app startup', function() {
 
-  describe('the given component', function() {
+  describe('the react component', function() {
 
     class ComponentDouble extends React.Component {
       render() {
@@ -54,4 +54,5 @@ describe('app startup', function() {
       assert.deepEqual(rendererOutput.props.props, {kataGroups: data});
     });
   });
+
 });
