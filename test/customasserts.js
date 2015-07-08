@@ -4,7 +4,7 @@ const TestUtils = React.addons.TestUtils;
 
 export function hasSubComponentOfType(componentToRender, expectedComponent) {
   var output = render(componentToRender);
-  const components = componentsOfType(output.props.children.props.children, expectedComponent);
+  const components = componentsOfType(allChildrenOf(output), expectedComponent);
   var errorMessage = `Expected \`${componentToRender.type.name}\` to have a sub component \`${expectedComponent.name}\`.`;
   assert.equal(components.length, 1, errorMessage);
 }
@@ -13,10 +13,15 @@ export function hasSubComponentOfTypeWithProps(componentToRender, type, expected
   hasSubComponentOfType(componentToRender, type);
 
   var output = render(componentToRender);
-  const components = componentsOfType(output.props.children.props.children, type);
+  const components = componentsOfType(allChildrenOf(output), type);
   assert.deepEqual(components[0].props, expectedProps);
 }
 
+function allChildrenOf(renderedOutput) {
+  // TODO make recursive to any depth
+  const _allChildren = ({props = {}}) => props.children || [];
+  return [..._allChildren(renderedOutput), ..._allChildren(_allChildren(renderedOutput))];
+}
 function render(componentToRender) {
   const shallowRenderer = TestUtils.createRenderer();
   shallowRenderer.render(componentToRender);
