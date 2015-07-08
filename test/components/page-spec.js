@@ -5,7 +5,7 @@ import sinon from 'sinon';
 import {hasSubComponentOfType, hasSubComponentOfTypeWithProps} from '../customasserts.js';
 
 import Page from '../../src/components/page.js';
-import Katas from '../../src/components/katas.js';
+import {default as KatasComponent} from '../../src/components/katas.js';
 import {default as KataGroupsData} from '../../src/katagroups.js';
 
 assert.hasSubComponentOfType = hasSubComponentOfType;
@@ -26,7 +26,7 @@ describe('page component', function() {
       const rawKataData = {[groupName]: {items: []}};
       let kataGroups = KataGroupsData.fromRawKataData(rawKataData);
 
-      assert.hasSubComponentOfType(<Page kataGroups={kataGroups}/>, Katas);
+      assert.hasSubComponentOfType(<Page kataGroups={kataGroups}/>, KatasComponent);
     });
 
   });
@@ -39,14 +39,14 @@ describe('page component', function() {
       kataGroups.selectGroupByName(groupName);
 
       var expectedProps = {kataGroup: kataGroups.selectedGroup};
-      assert.hasSubComponentOfTypeWithProps(<Page kataGroups={kataGroups}/>, Katas, expectedProps);
+      assert.hasSubComponentOfTypeWithProps(<Page kataGroups={kataGroups}/>, KatasComponent, expectedProps);
     });
     it('if no selectedGroup exists receives the firstGroup from the KataGroupsData instance', function() {
       const rawKataData = {'first group': {items: []}, 'second group': {items: []}};
       let kataGroups = KataGroupsData.fromRawKataData(rawKataData);
 
       var expectedProps = {kataGroup: kataGroups.firstGroup};
-      assert.hasSubComponentOfTypeWithProps(<Page kataGroups={kataGroups}/>, Katas, expectedProps);
+      assert.hasSubComponentOfTypeWithProps(<Page kataGroups={kataGroups}/>, KatasComponent, expectedProps);
     });
   });
 });
