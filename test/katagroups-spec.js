@@ -3,21 +3,21 @@ import KataGroups from '../src/katagroups.js';
 
 describe('kata groups (data for rendering)', function() {
 
-  const groupName = 'group one';
-
   describe('a group', function() {
-    let kataGroups;
+    const defaultGroupName = 'group one';
     let firstGroup;
     const katas = [
       {name: 'jojo', path: 'some', id: '42'}
     ];
-    beforeEach(function() {
-      const rawData = {[groupName]: {items: katas}};
-      kataGroups = KataGroups.fromRawKataData(rawData);
-      firstGroup = kataGroups.groups[0];
-    });
 
-    it('has the name of the kata group', () => {assert.equal(firstGroup.name, groupName); });
+    function render(groupName = defaultGroupName) {
+      const rawData = {[groupName]: {items: katas}};
+      let kataGroups = KataGroups.fromRawKataData(rawData);
+      firstGroup = kataGroups.groups[0];
+    }
+    beforeEach(render);
+
+    it('has the name of the kata group', () => {assert.equal(firstGroup.name, defaultGroupName); });
     it('has a katasCount', () => {assert.equal(firstGroup.katasCount, 1); });
     it('has all katas', () => {assert.strictEqual(firstGroup.katas, katas); });
   });
@@ -38,6 +38,7 @@ describe('kata groups (data for rendering)', function() {
   });
 
   describe('select', function() {
+    const groupName = 'group one';
     let kataGroups;
     const secondKataId = '23';
     const secondKataName = 'second kata';
