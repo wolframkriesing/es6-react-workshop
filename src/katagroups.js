@@ -7,6 +7,10 @@ export default class KataGroups {
     return kataGroups;
   }
 
+  get firstGroup() {
+    return this.groups[0];
+  }
+
   selectGroupByName(nameToSelect) {
     this.groups.some(group => {
       if (group.name === nameToSelect) {

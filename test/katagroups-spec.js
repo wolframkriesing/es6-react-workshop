@@ -19,7 +19,8 @@ describe('kata groups (data for rendering)', function() {
 
     it('has the name of the kata group', () => {assert.equal(firstGroup.name, groupName); });
     it('has a katasCount', () => {assert.equal(firstGroup.katasCount, 1); });
-    it('has all katas', () => {assert.deepEqual(firstGroup.katas, katas); });
+    it('has all katas', () => {assert.strictEqual(firstGroup.katas, katas); });
+    it('`firstGroup` is correct', () => {assert.strictEqual(kataGroups.firstGroup, firstGroup); });
   });
   it('a group without items ...', function() {
     //processRawData({groups: {'group one': {items: []}}});
