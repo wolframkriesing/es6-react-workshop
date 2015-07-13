@@ -42,9 +42,6 @@ describe('KataGroupsComponent', function() {
   });
   it('renders "(`kataCount`)"', function() {
     let firstKataGroup = kataGroups.firstGroup;
-    var linkIndex = 0;
-    let output = render(component);
-    let spanInLink = output.props.children[1].props.children.props.children.props.children[2][linkIndex].props.children.props.children[2];
-    assert.equal(spanInLink.props.children.join(''), `(${firstKataGroup.katasCount})`);
+    assert.rendersDomNodeWithTextContent(component, `(${firstKataGroup.katasCount})`);
   });
 });
