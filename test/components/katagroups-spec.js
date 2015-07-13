@@ -1,6 +1,13 @@
 import assert from 'assert';
 import React from 'react/addons';
 const TestUtils = React.addons.TestUtils;
+import {
+  rendersDomNodeWithAttrAndValue,
+  rendersDomNodeWithTextContent
+} from 'react-components-asserts';
+
+assert.rendersDomNodeWithAttrAndValue = rendersDomNodeWithAttrAndValue;
+assert.rendersDomNodeWithTextContent = rendersDomNodeWithTextContent;
 
 import KataGroupsComponent from '../../src/components/katagroups.js';
 import KataGroups from '../../src/katagroups.js';
@@ -27,17 +34,11 @@ describe('KataGroupsComponent', function() {
   });
   it('render the `url` into `href` attribute', function() {
     let firstKataGroup = kataGroups.firstGroup;
-    var linkIndex = 0;
-    let output = render(component);
-    let firstLink = output.props.children[1].props.children.props.children.props.children[2][linkIndex].props.children.props;
-    assert.equal(firstLink.href, firstKataGroup.url);
+    assert.rendersDomNodeWithAttrAndValue(component, 'href', firstKataGroup.url);
   });
   it('renders the `name`', function() {
     let firstKataGroup = kataGroups.firstGroup;
-    var linkIndex = 0;
-    let output = render(component);
-    let firstLink = output.props.children[1].props.children.props.children.props.children[2][linkIndex].props.children.props;
-    assert.equal(firstLink.children[0], firstKataGroup.name);
+    assert.rendersDomNodeWithTextContent(component, firstKataGroup.name);
   });
   it('renders "(`kataCount`)"', function() {
     let firstKataGroup = kataGroups.firstGroup;
