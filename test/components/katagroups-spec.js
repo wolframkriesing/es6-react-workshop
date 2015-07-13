@@ -16,11 +16,13 @@ describe('KataGroupsComponent', function() {
 
   let component;
   let kataGroups;
+  let firstKataGroup;
   beforeEach(function() {
     const groupName = 'kata group name';
     const rawKataData = {[groupName]: {items: []}, 'group 2': {items: []}};
     kataGroups = KataGroups.fromRawKataData(rawKataData);
     component = <KataGroupsComponent kataGroups={kataGroups}/>;
+    firstKataGroup = kataGroups.firstGroup;
   });
   function render(componentToRender) {
     const shallowRenderer = TestUtils.createRenderer();
@@ -32,16 +34,15 @@ describe('KataGroupsComponent', function() {
     let renderedKataGroups = output.props.children[1].props.children.props.children.props.children[2];
     assert.equal(renderedKataGroups.length, 2);
   });
-  it('render the `url` into `href` attribute', function() {
-    let firstKataGroup = kataGroups.firstGroup;
-    assert.rendersDomNodeWithAttrAndValue(component, 'href', firstKataGroup.url);
-  });
-  it('renders the `name`', function() {
-    let firstKataGroup = kataGroups.firstGroup;
-    assert.rendersDomNodeWithTextContent(component, firstKataGroup.name);
-  });
-  it('renders "(`kataCount`)"', function() {
-    let firstKataGroup = kataGroups.firstGroup;
-    assert.rendersDomNodeWithTextContent(component, `(${firstKataGroup.katasCount})`);
+  describe('renders', function() {
+    it('`url` into `href` attribute', () => {
+      assert.rendersDomNodeWithAttrAndValue(component, 'href', firstKataGroup.url);
+    });
+    it('`name`', () => {
+      assert.rendersDomNodeWithTextContent(component, firstKataGroup.name);
+    });
+    it('"(`kataCount`)"', () => {
+      assert.rendersDomNodeWithTextContent(component, `(${firstKataGroup.katasCount})`);
+    });
   });
 });
