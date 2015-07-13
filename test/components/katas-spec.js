@@ -1,6 +1,9 @@
 import assert from 'assert';
 import React from 'react/addons';
 const TestUtils = React.addons.TestUtils;
+import {rendersDomNodeWithAttrAndValue} from 'react-components-asserts';
+
+assert.rendersDomNodeWithAttrAndValue = rendersDomNodeWithAttrAndValue;
 
 import KatasComponent from '../../src/components/katas.js';
 import KataGroups from '../../src/katagroups.js';
@@ -52,6 +55,6 @@ describe('KatasComponent', function() {
     assert.rendersDomNodeWithInnerText(component, description);
   });
   it('render the URL properly', function() {
-    assert.rendersDomNodeAttributeWithValue(component, 'href', '???&kataId=1');
+    assert.rendersDomNodeWithAttrAndValue(component, 'href', '???&kataId=1');
   });
 });
