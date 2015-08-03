@@ -28,6 +28,16 @@ describe('kata groups (data for rendering)', function() {
   it('a group without items ...', function() {
     //processRawData({groups: {'group one': {items: []}}});
   });
+
+  it('sorts all groups by number of katas insides', function() {
+    const oneKata = {name: 'jojo', path: 'some', id: '42'};
+    const rawData = {
+      ['one']: {items: [oneKata], slug: '1'},
+      ['two']: {items: [oneKata, oneKata, oneKata], slug: '2'}
+    };
+    let kataGroups = KataGroups.fromRawKataData(rawData);
+    assert.equal(kataGroups.firstGroup.name, 'two');
+  });
 });
 
 
@@ -43,7 +53,7 @@ describe('provides', function() {
   it('`firstGroup`', () => {assert.strictEqual(kataGroups.firstGroup, kataGroups.groups[0]); });
 });
 
-describe('select', function() {
+describe('selecting', function() {
 
   describe('a kata group', function() {
     it('by name', function() {

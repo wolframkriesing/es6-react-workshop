@@ -12,6 +12,9 @@ export default class KataGroups {
       .map(groupName => {
         const group = rawGroups[groupName];
         return new KataGroup(groupName, group.slug, group.items);
+      })
+      .sort(({katasCount: katasCount1}, {katasCount: katasCount2}) => {
+        return katasCount2 - katasCount1;
       });
     return kataGroups;
   }
