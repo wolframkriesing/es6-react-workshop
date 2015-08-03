@@ -12,12 +12,15 @@ export default class PageComponent extends React.Component {
 
   render() {
     const {kataGroups, appUrl} = this.props;
-    const {selectedGroup = kataGroups.firstGroup} = kataGroups;
+    const {
+      selectedGroup = kataGroups.firstGroup,
+      selectedKata
+    } = kataGroups;
     return (
       <div id="layout" className="content pure-g">
         <KataGroupsComponent kataGroups={kataGroups} appUrl={appUrl}/>
         <KatasComponent kataGroup={selectedGroup} appUrl={appUrl} />
-        <KataComponent />
+        <KataComponent kata={selectedKata} />
       </div>
     );
   }
