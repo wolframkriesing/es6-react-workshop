@@ -40,7 +40,7 @@ describe('page component', function() {
       const groupName = 'kata group name';
       const rawKataData = {[groupName]: {items: []}};
       let kataGroups = KataGroups.fromRawKataData(rawKataData);
-      kataGroups.selectGroupByName(groupName);
+      kataGroups.selectGroupBySlug(groupName);
 
       var expectedProps = {kataGroup: kataGroups.selectedGroup, appUrl: appUrlDouble};
       assert.hasSubComponentOfTypeWithProps(<PageComponent kataGroups={kataGroups} appUrl={appUrlDouble} />, KatasComponent, expectedProps);

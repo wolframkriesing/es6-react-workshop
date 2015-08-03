@@ -12,9 +12,9 @@ export default class AppState {
   }
 
   updateFromUrlData(urlData) {
-    const kataGroupName = urlData.kataGroup;
-    if (kataGroupName) {
-      this.kataGroups.selectGroupByName(kataGroupName);
+    const kataGroupSlug = urlData.kataGroupSlug;
+    if (kataGroupSlug) {
+      this.kataGroups.selectGroupBySlug(kataGroupSlug);
     }
   }
 }

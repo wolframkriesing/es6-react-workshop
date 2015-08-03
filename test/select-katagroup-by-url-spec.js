@@ -16,45 +16,33 @@ describe('a URL change selects a certain kata group', function() {
   describe('selects nothing', function() {
     it('for an empty query', function() {
       let kataGroups = new KataGroups();
-      sinon.stub(kataGroups, 'selectGroupByName');
+      sinon.stub(kataGroups, 'selectGroupBySlug');
 
       let noUrlData = {};
       selectGroupByUrl(kataGroups, noUrlData);
 
-      assert.notCalled(kataGroups.selectGroupByName);
+      assert.notCalled(kataGroups.selectGroupBySlug);
     });
     it('for a hash without `kataGroup`', function() {
       let kataGroups = new KataGroups();
-      sinon.stub(kataGroups, 'selectGroupByName');
+      sinon.stub(kataGroups, 'selectGroupBySlug');
 
       let urlDataWithoutValidKataGroup = {nokatagroup: 'bla'};
       selectGroupByUrl(kataGroups, urlDataWithoutValidKataGroup);
 
-      assert.notCalled(kataGroups.selectGroupByName);
+      assert.notCalled(kataGroups.selectGroupBySlug);
     });
   });
 
   describe('select right kata group', function() {
-    it('a hash with `kataGroup=x`', function() {
+    it('a hash with `kataGroupSlug=x`', function() {
       let kataGroups = new KataGroups();
-      sinon.stub(kataGroups, 'selectGroupByName');
+      sinon.stub(kataGroups, 'selectGroupBySlug');
 
-      let urlData = {kataGroup: 'x'};
+      let urlData = {kataGroupSlug: 'x'};
       selectGroupByUrl(kataGroups, urlData);
 
-      assert.calledWith(kataGroups.selectGroupByName, 'x');
-    });
-
-    describe('the kataGroup is made readable in the URL (should not ugly encode like %20)', function() {
-      it('a kataGroup "Spread operator" shall become "Spread_operator"', function() {
-        let kataGroups = KataGroups.fromNames(['Spread operator']);
-        sinon.stub(kataGroups, 'selectGroupByName');
-    
-        let urlData = {kataGroup: 'Spread_operator'};
-        selectGroupByUrl(kataGroups, urlData);
-    
-        assert.calledWith(kataGroups.selectGroupByName, 'Spread operator');
-      });
+      assert.calledWith(kataGroups.selectGroupBySlug, 'x');
     });
   });
 
