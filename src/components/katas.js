@@ -23,7 +23,7 @@ export class KataLinkComponent extends React.Component {
     var {kata, appUrl} = this.props;
     return (
       <div className="email-item pure-g">
-        <a className="pure-u-3-4" href={appUrl.constructUrlForKata(kata)}>
+        <a className="pure-u-3-4" href={appUrl.buildUrlForKata(kata)}>
           <h4 className="email-subject">{kata.name}</h4>
           <p className="email-desc">{kata.description}</p>
         </a>

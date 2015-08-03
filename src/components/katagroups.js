@@ -20,7 +20,7 @@ export default class KataGroupsComponent extends React.Component {
               <li className="pure-menu-item">
               </li>
               {kataGroups.groups.map(kataGroup => <li className="pure-menu-item">
-                <a href={appUrl.constructUrlForKataGroup(kataGroup)} className="pure-menu-link">{kataGroup.name} <span className="email-count">({kataGroup.katasCount})</span></a>
+                <a href={appUrl.buildUrlForKataGroup(kataGroup)} className="pure-menu-link">{kataGroup.name} <span className="email-count">({kataGroup.katasCount})</span></a>
               </li>)}
             </ul>
           </div>
