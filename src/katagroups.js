@@ -9,13 +9,10 @@ export default class KataGroups {
     let kataGroups = new KataGroups();
     kataGroups.groups = Object
       .keys(rawGroups)
-      .map(groupName => new KataGroup(groupName, rawGroups[groupName].slug, rawGroups[groupName].items));
-    return kataGroups;
-  }
-
-  static fromNames(names) {
-    let kataGroups = new KataGroups();
-    kataGroups.groups = names.map(name => new KataGroup(name, name, []));
+      .map(groupName => {
+        const group = rawGroups[groupName];
+        return new KataGroup(groupName, group.slug, group.items);
+      });
     return kataGroups;
   }
 
