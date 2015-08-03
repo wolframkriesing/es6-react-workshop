@@ -25,7 +25,7 @@ describe('KatasComponent', function() {
     };
     let kataGroups = KataGroups.fromRawKataData(rawKataData);
     kataGroup = kataGroups.firstGroup;
-    const appUrlDouble = {constructUrlForKata() { return urlForKata; }};
+    const appUrlDouble = {buildUrlForKata() { return urlForKata; }};
     component = <KatasComponent kataGroup={kataGroup} appUrl={appUrlDouble} />;
   });
   function render(componentToRender) {
