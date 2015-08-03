@@ -7,9 +7,6 @@ import AppUrl from './appurl';
 import AppState from './appstate';
 
 class AppControl {
-  constructor() {
-    this.appState;
-  }
   initialize(loadRemoteFile, katasUrl, url) {
     new RawKataData(loadRemoteFile, katasUrl).load(() => {}, (rawKataData) => {
       this.appState = AppState.initializeFromRawKataData(rawKataData);
