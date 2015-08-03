@@ -39,6 +39,7 @@
     "eslint": "^0.24.0",
     "eslint-plugin-react": "^2.6.4",
     "babel-eslint": "^3.1.23",
-    "react-components-asserts": "^1.0.0"
+    "react-components-asserts": "^1.0.0",
+    "babel": "^5.8.20"
   }
 }

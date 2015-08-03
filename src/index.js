@@ -5,6 +5,7 @@ import React from 'react';
 import Page from './components/page.js';
 import AppUrl from './appurl';
 import AppState from './appstate';
+import 'babel/polyfill';
 
 class AppControl {
   initialize(loadRemoteFile, katasUrl, url) {
