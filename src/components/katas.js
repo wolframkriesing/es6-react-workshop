@@ -8,10 +8,11 @@ export default class KatasComponent extends React.Component {
   };
 
   render() {
+    const appUrl = this.props.appUrl;
     const {katas} = this.props.kataGroup;
     return (
       <div id="list" className="pure-u-1">
-        {katas.map(kata => <KataLinkComponent kata={kata} />)}
+        {katas.map(kata => <KataLinkComponent kata={kata} appUrl={appUrl} />)}
       </div>
     );
   }
@@ -19,15 +20,12 @@ export default class KatasComponent extends React.Component {
 
 export class KataLinkComponent extends React.Component {
   render() {
-    const {id, name, description} = this.props.kata;
-    //const urlWithoutKataId = window.location.href.replace(/&kataId=\d+$/, '');
-    const urlWithoutKataId = '???';
-    const newUrl = `${urlWithoutKataId}&kataId=${id}`;
+    var {kata, appUrl} = this.props;
     return (
       <div className="email-item pure-g">
-        <a className="pure-u-3-4" href={newUrl}>
-          <h4 className="email-subject">{name}</h4>
-          <p className="email-desc">{description}</p>
+        <a className="pure-u-3-4" href={appUrl.constructUrlForKata(kata)}>
+          <h4 className="email-subject">{kata.name}</h4>
+          <p className="email-desc">{kata.description}</p>
         </a>
       </div>
     );

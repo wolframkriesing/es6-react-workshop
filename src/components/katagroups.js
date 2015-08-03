@@ -8,7 +8,7 @@ export default class KataGroupsComponent extends React.Component {
   };
 
   render() {
-    const {kataGroups} = this.props;
+    const {kataGroups, appUrl} = this.props;
     return (
       <div id="nav" className="pure-u">
         <a href="#" className="nav-menu-button">Menu</a>
@@ -20,7 +20,7 @@ export default class KataGroupsComponent extends React.Component {
               <li className="pure-menu-item">
               </li>
               {kataGroups.groups.map(kataGroup => <li className="pure-menu-item">
-                <a href={kataGroup.url} className="pure-menu-link">{kataGroup.name} <span className="email-count">({kataGroup.katasCount})</span></a>
+                <a href={appUrl.constructUrlForKataGroup(kataGroup)} className="pure-menu-link">{kataGroup.name} <span className="email-count">({kataGroup.katasCount})</span></a>
               </li>)}
             </ul>
           </div>

@@ -56,6 +56,5 @@ export class KataGroup {
     this.name = name;
     this.katasCount = items.length;
     this.katas = items;
-    this.url = `#kataGroup=${encodeURIComponent(name)}`;
   }
 }
