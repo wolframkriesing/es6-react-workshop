@@ -11,8 +11,8 @@ export default class AppState {
     return AppState.initializeFromKataGroups(KataGroups.fromRawKataData(rawKataData));
   }
 
-  updateFromUrl(url) {
-    const kataGroupName = AppUrl.urlData(url).kataGroup;
+  updateFromUrlData(urlData) {
+    const kataGroupName = urlData.kataGroup;
     if (kataGroupName) {
       this.kataGroups.selectGroupByName(kataGroupName);
     }

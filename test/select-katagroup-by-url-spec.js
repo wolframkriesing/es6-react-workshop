@@ -6,9 +6,9 @@ import sinon from 'sinon';
 assert.notCalled = sinon.assert.notCalled;
 assert.calledWith = sinon.assert.calledWith;
 
-function selectGroupByUrl(kataGroups, url) {
+function selectGroupByUrl(kataGroups, urlData) {
   let appState = AppState.initializeFromKataGroups(kataGroups);
-  appState.updateFromUrl(url);
+  appState.updateFromUrlData(urlData);
 }
 
 describe('a URL change selects a certain kata group', function() {
@@ -18,8 +18,8 @@ describe('a URL change selects a certain kata group', function() {
       let kataGroups = new KataGroups();
       sinon.stub(kataGroups, 'selectGroupByName');
 
-      let url = '';
-      selectGroupByUrl(kataGroups, url);
+      let noUrlData = {};
+      selectGroupByUrl(kataGroups, noUrlData);
 
       assert.notCalled(kataGroups.selectGroupByName);
     });
@@ -27,8 +27,8 @@ describe('a URL change selects a certain kata group', function() {
       let kataGroups = new KataGroups();
       sinon.stub(kataGroups, 'selectGroupByName');
 
-      let url = 'http://nothing.com/#nokatagroup=bla';
-      selectGroupByUrl(kataGroups, url);
+      let urlDataWithoutValidKataGroup = {nokatagroup: 'bla'};
+      selectGroupByUrl(kataGroups, urlDataWithoutValidKataGroup);
 
       assert.notCalled(kataGroups.selectGroupByName);
     });
@@ -39,20 +39,22 @@ describe('a URL change selects a certain kata group', function() {
       let kataGroups = new KataGroups();
       sinon.stub(kataGroups, 'selectGroupByName');
 
-      let url = 'http://whatever.com/#kataGroup=x';
-      selectGroupByUrl(kataGroups, url);
+      let urlData = {kataGroup: 'x'};
+      selectGroupByUrl(kataGroups, urlData);
 
       assert.calledWith(kataGroups.selectGroupByName, 'x');
     });
 
-    it('a url encoded hash `kataGroup=kata%20name`', function() {
-      let kataGroups = new KataGroups();
-      sinon.stub(kataGroups, 'selectGroupByName');
-
-      let url = 'http://whatever.com/#kataGroup=kata%20name';
-      selectGroupByUrl(kataGroups, url);
-
-      assert.calledWith(kataGroups.selectGroupByName, 'kata name');
+    describe('the kataGroup is made readable in the URL (should not ugly encode like %20)', function() {
+      it('a kataGroup "Spread operator" shall become "Spread_operator"', function() {
+        let kataGroups = KataGroups.fromNames(['Spread operator']);
+        sinon.stub(kataGroups, 'selectGroupByName');
+    
+        let urlData = {kataGroup: 'Spread_operator'};
+        selectGroupByUrl(kataGroups, urlData);
+    
+        assert.calledWith(kataGroups.selectGroupByName, 'Spread operator');
+      });
     });
   });
 

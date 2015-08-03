@@ -13,6 +13,12 @@ export default class KataGroups {
     return kataGroups;
   }
 
+  static fromNames(names) {
+    let kataGroups = new KataGroups();
+    kataGroups.groups = names.map(name => new KataGroup(name, []));
+    return kataGroups;
+  }
+
   get firstGroup() {
     return this.groups[0];
   }

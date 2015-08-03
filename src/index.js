@@ -13,11 +13,11 @@ class AppControl {
   initialize(loadRemoteFile, katasUrl, url) {
     new RawKataData(loadRemoteFile, katasUrl).load(() => {}, (rawKataData) => {
       this.appState = AppState.initializeFromRawKataData(rawKataData);
-      this.appState.updateFromUrl(url);
+      this.appState.updateFromUrlData(AppUrl.urlData(url));
       this.rerender();
     });
     window.addEventListener('hashchange', ({newURL: newUrl}) => {
-      this.appState.updateFromUrl(newUrl);
+      this.appState.updateFromUrlData(newUrl);
       this.rerender();
     });
   }
