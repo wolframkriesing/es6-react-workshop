@@ -11,7 +11,7 @@ export default class AppUrl {
     var name = kataGroup.name.replace(' ', '_');
     return `${urlWithoutKataGroup}#kataGroup=${encodeURIComponent(name)}`;
   }
-  static parseUrl(url) {
+  static urlData(url) {
     const parsedUrl = parseUrl(url);
     if (parsedUrl && parsedUrl.hash) {
       return parseQuerystring(parsedUrl.hash.replace(/^#/, ''));

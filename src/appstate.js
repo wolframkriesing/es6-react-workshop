@@ -12,7 +12,7 @@ export default class AppState {
   }
 
   updateFromUrl(url) {
-    const kataGroupName = AppUrl.parseUrl(url).kataGroup;
+    const kataGroupName = AppUrl.urlData(url).kataGroup;
     if (kataGroupName) {
       this.kataGroups.selectGroupByName(kataGroupName);
     }
