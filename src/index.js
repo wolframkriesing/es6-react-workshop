@@ -9,13 +9,15 @@ import 'babel/polyfill';
 
 class AppControl {
   initialize(loadRemoteFile, katasUrl, url) {
-    new RawKataData(loadRemoteFile, katasUrl).load(() => {}, (rawKataData) => {
+    new RawKataData(loadRemoteFile, katasUrl).load((...args) => {
+      console.log(args);
+    }, (rawKataData) => {
       this.appState = AppState.initializeFromRawKataData(rawKataData);
       this.appState.updateFromUrlData(AppUrl.urlData(url));
       this.rerender();
     });
     window.addEventListener('hashchange', ({newURL: newUrl}) => {
-      this.appState.updateFromUrlData(newUrl);
+      this.appState.updateFromUrlData(AppUrl.urlData(newUrl));
       this.rerender();
     });
   }
