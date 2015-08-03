@@ -1,27 +1,18 @@
 import RawKataData from './rawkatadata.js';
-import KataGroups from './katagroups.js';
 import {KATAS_URL} from './config.js';
 import {loadRemoteFile} from './_external-deps/http-get.js';
 import React from 'react';
 import Page from './components/page.js';
-import {byUrl as selectGroupByUrl} from './selectkatagroup.js';
-
-class AppState {
-  initialize(rawKataData) {
-    this.kataGroups = KataGroups.fromRawKataData(rawKataData);
-  }
-  updateFromUrl(rawUrl) {
-    selectGroupByUrl(this.kataGroups, rawUrl);
-  }
-}
+import AppUrl from './appurl';
+import AppState from './appstate';
 
 class AppControl {
   constructor() {
-    this.appState = new AppState();
+    this.appState;
   }
   initialize(loadRemoteFile, katasUrl, url) {
     new RawKataData(loadRemoteFile, katasUrl).load(() => {}, (rawKataData) => {
-      this.appState.initialize(rawKataData);
+      this.appState = AppState.initializeFromRawKataData(rawKataData);
       this.appState.updateFromUrl(url);
       this.rerender();
     });
