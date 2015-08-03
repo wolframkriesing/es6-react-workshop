@@ -17,11 +17,13 @@ describe('KataGroupsComponent', function() {
   let component;
   let kataGroups;
   let firstKataGroup;
+  const kataGroupUrl = 'kata group url';
   beforeEach(function() {
     const groupName = 'kata group name';
     const rawKataData = {[groupName]: {items: []}, 'group 2': {items: []}};
     kataGroups = KataGroups.fromRawKataData(rawKataData);
-    component = <KataGroupsComponent kataGroups={kataGroups}/>;
+    const appUrlDouble = {constructUrlForKataGroup() { return kataGroupUrl; }};
+    component = <KataGroupsComponent kataGroups={kataGroups} appUrl={appUrlDouble} />;
     firstKataGroup = kataGroups.firstGroup;
   });
   function render(componentToRender) {
@@ -36,7 +38,7 @@ describe('KataGroupsComponent', function() {
   });
   describe('renders', function() {
     it('`url` into `href` attribute', () => {
-      assert.rendersDomNodeWithAttrAndValue(component, 'href', firstKataGroup.url);
+      assert.rendersDomNodeWithAttrAndValue(component, 'href', kataGroupUrl);
     });
     it('`name`', () => {
       assert.rendersDomNodeWithTextContent(component, firstKataGroup.name);
