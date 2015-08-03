@@ -1,11 +1,15 @@
 import assert from 'assert';
 import KataGroups from '../src/katagroups.js'; // #todo remove this dependency
-import {byUrl as selectGroupByUrl} from '../src/selectkatagroup.js';
+import AppState from '../src/appstate';
 
 import sinon from 'sinon';
 assert.notCalled = sinon.assert.notCalled;
 assert.calledWith = sinon.assert.calledWith;
 
+function selectGroupByUrl(kataGroups, url) {
+  let appState = AppState.initializeFromKataGroups(kataGroups);
+  appState.updateFromUrl(url);
+}
 
 describe('a URL change selects a certain kata group', function() {
 
