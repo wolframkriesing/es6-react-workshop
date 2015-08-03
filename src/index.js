@@ -8,11 +8,11 @@ import {byUrl as selectGroupByUrl} from './selectkatagroup.js';
 
 
 class AppUrl {
-  constructUrlForKata(kata) {
+  static constructUrlForKata(kata) {
     const urlWithoutKataId = window.location.href.replace(/&kataId=\d+$/, '');
     return `${urlWithoutKataId}&kataId=${kata.id}`;
   }
-  constructUrlForKataGroup(kataGroup) {
+  static constructUrlForKataGroup(kataGroup) {
     const urlWithoutKataGroup = window.location.href.replace(/#kataGroup=.*/, '');
     var name = kataGroup.name.replace(' ', '_');
     return `${urlWithoutKataGroup}#kataGroup=${encodeURIComponent(name)}`;
@@ -30,7 +30,6 @@ class AppState {
 
 class AppControl {
   constructor() {
-    this.appUrl = new AppUrl();
     this.appState = new AppState();
   }
   initialize(loadRemoteFile, katasUrl, url) {
@@ -45,9 +44,8 @@ class AppControl {
     });
   }
   rerender() {
-    const appUrl = this.appUrl;
     const kataGroups = this.appState.kataGroups;
-    React.render(<Page kataGroups={kataGroups} appUrl={appUrl}/>, document.getElementById('app'));
+    React.render(<Page kataGroups={kataGroups} appUrl={AppUrl}/>, document.getElementById('app'));
   }
 }
 
