@@ -31,9 +31,9 @@ export default class KataGroups {
     return this._selectedKata;
   }
 
-  selectGroupBySlug(nameToSelect) {
+  selectGroupBySlug(slugToSelect) {
     this.groups.some(group => {
-      if (group.name === nameToSelect) {
+      if (group.slug === slugToSelect) {
         this._selectedGroup = group;
         return true; // stop iterating
       }

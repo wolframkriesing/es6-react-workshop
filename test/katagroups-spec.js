@@ -42,39 +42,46 @@ describe('kata groups (data for rendering)', function() {
   });
 
   describe('select', function() {
-    const groupName = 'group one';
-    let kataGroups;
-    const secondKataId = '23';
-    const secondKataName = 'second kata';
-    beforeEach(function() {
-      const katas = [
-        {name: 'jojo', path: 'some', id: '42'},
-        {name: secondKataName, path: 'some2', id: secondKataId}
-      ];
-      const rawData = {[groupName]: {items: katas}};
-      kataGroups = KataGroups.fromRawKataData(rawData);
-    });
 
     describe('a kata group', function() {
       it('by name', function() {
-        kataGroups.selectGroupBySlug(groupName);
+        const groupName = 'group one';
+        const groupSlug = 'group_one';
+        const rawData = {[groupName]: {items: [], slug: groupSlug}};
+        const kataGroups = KataGroups.fromRawKataData(rawData);
+
+        kataGroups.selectGroupBySlug(groupSlug);
         assert.equal(kataGroups.selectedGroup.name, groupName);
       });
     });
+
     describe('a kata', function() {
+
+      let kataGroups;
+      const secondKataId = '23';
+      const secondKataName = 'second kata';
+      beforeEach(function() {
+        const katas = [
+          {name: 'jojo', path: 'some', id: '42'},
+          {name: secondKataName, path: 'some2', id: secondKataId}
+        ];
+        const rawData = {['group one']: {items: katas, slug: 'group_one'}};
+        kataGroups = KataGroups.fromRawKataData(rawData);
+      });
+
       it('by id', function() {
         kataGroups.selectKataById(secondKataId);
         assert.equal(kataGroups.selectedKata.name, secondKataName);
       });
-    });
-    describe('when a kata ID is invalid', function() {
-      it('dont fail', function() {
-        const fn = () => { kataGroups.selectKataById(-1); };
-        assert.doesNotThrow(fn);
-      });
-      it('`selectedKata` is undefined', function() {
-        kataGroups.selectKataById(-1);
-        assert.equal(kataGroups.selectedKata, void 0);
+      describe('when a kata ID is invalid', function() {
+        it('dont fail', function() {
+          const fn = () => { kataGroups.selectKataById(-1); };
+          assert.doesNotThrow(fn);
+        });
+        it('`selectedKata` is undefined', function() {
+          kataGroups.selectKataById(-1);
+          assert.equal(kataGroups.selectedKata, void 0);
+        });
       });
     });
   });

@@ -37,10 +37,10 @@ describe('page component', function() {
   describe('the Katas component', function() {
     const appUrlDouble = {};
     it('receives the selectedGroup from the KataGroupsData instance', function() {
-      const groupName = 'kata group name';
-      const rawKataData = {[groupName]: {items: []}};
+      const slug = 'slug';
+      const rawKataData = {['group name']: {items: [], slug: slug}};
       let kataGroups = KataGroups.fromRawKataData(rawKataData);
-      kataGroups.selectGroupBySlug(groupName);
+      kataGroups.selectGroupBySlug(slug);
 
       var expectedProps = {kataGroup: kataGroups.selectedGroup, appUrl: appUrlDouble};
       assert.hasSubComponentOfTypeWithProps(<PageComponent kataGroups={kataGroups} appUrl={appUrlDouble} />, KatasComponent, expectedProps);
