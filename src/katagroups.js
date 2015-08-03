@@ -9,13 +9,13 @@ export default class KataGroups {
     let kataGroups = new KataGroups();
     kataGroups.groups = Object
       .keys(rawGroups)
-      .map(groupName => new KataGroup(groupName, rawGroups[groupName].items));
+      .map(groupName => new KataGroup(groupName, rawGroups[groupName].slug, rawGroups[groupName].items));
     return kataGroups;
   }
 
   static fromNames(names) {
     let kataGroups = new KataGroups();
-    kataGroups.groups = names.map(name => new KataGroup(name, []));
+    kataGroups.groups = names.map(name => new KataGroup(name, name, []));
     return kataGroups;
   }
 
@@ -58,8 +58,9 @@ export default class KataGroups {
 }
 
 export class KataGroup {
-  constructor(name, items) {
+  constructor(name, slug, items) {
     this.name = name;
+    this.slug = slug;
     this.katasCount = items.length;
     this.katas = items;
   }
