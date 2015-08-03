@@ -16,7 +16,7 @@ export default class AppUrl {
 
   static urlData(url) {
     const parsedUrl = parseUrl(url);
-    if (parsedUrl && parsedUrl.hash && parseUrl.hash.startsWith('#/kata')) {
+    if (parsedUrl && parsedUrl.hash && parsedUrl.hash.startsWith('#/kata')) {
       const hashData = parsedUrl.hash.replace(/^#\/kata\//, '');
       const [kataGroupSlug, kataId] = hashData.split('/');
       return {kataGroupSlug, kataId};
