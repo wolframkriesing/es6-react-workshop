@@ -19,40 +19,38 @@ class AppUrl {
   }
 }
 
-class AppData {
-  constructor() {
-    this.kataGroups = null;
-    this.appUrl = new AppUrl();
-    this._onUpdateFns = [];
+class AppState {
+  initialize(rawKataData) {
+    this.kataGroups = KataGroups.fromRawKataData(rawKataData);
   }
-  initialize({loadRemoteFile, KATAS_URL, rawUrl}) {
-    new RawKataData(loadRemoteFile, KATAS_URL).load(() => {}, (rawKataData) => {
-      this.kataGroups = KataGroups.fromRawKataData(rawKataData);
-      this._triggerOnUpdateFns();
-    });
-    window.addEventListener('hashchange', ({newURL: newUrl}) => { this.fromRawUrl(newUrl); });
-  }
-  fromRawUrl(rawUrl) {
+  updateFromUrl(rawUrl) {
     selectGroupByUrl(this.kataGroups, rawUrl);
-    this._triggerOnUpdateFns();
   }
-  onUpdate(doWhat) {
-    this._onUpdateFns.push(doWhat);
-  }
+}
 
-  _triggerOnUpdateFns() {
-    const kataGroups = this.kataGroups;
+class AppControl {
+  constructor() {
+    this.appUrl = new AppUrl();
+    this.appState = new AppState();
+  }
+  initialize(loadRemoteFile, katasUrl, url) {
+    new RawKataData(loadRemoteFile, katasUrl).load(() => {}, (rawKataData) => {
+      this.appState.initialize(rawKataData);
+      this.appState.updateFromUrl(url);
+      this.rerender();
+    });
+    window.addEventListener('hashchange', ({newURL: newUrl}) => {
+      this.appState.updateFromUrl(newUrl);
+      this.rerender();
+    });
+  }
+  rerender() {
     const appUrl = this.appUrl;
-    this._onUpdateFns[0]({kataGroups, appUrl});
+    const kataGroups = this.appState.kataGroups;
+    React.render(<Page kataGroups={kataGroups} appUrl={appUrl}/>, document.getElementById('app'));
   }
 }
 
 const url = window.location.href;
-const appData = new AppData();
-appData.onUpdate(rerender);
-appData.initialize({loadRemoteFile, KATAS_URL, rawUrl: url});
-//appData.updateFromUrl(url);
-
-function rerender({kataGroups, appUrl}) {
-  React.render(<Page kataGroups={kataGroups} appUrl={appUrl}/>, document.getElementById('app'));
-}
+const appControl = new AppControl();
+appControl.initialize(loadRemoteFile, KATAS_URL, url);
