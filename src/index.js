@@ -6,19 +6,6 @@ import React from 'react';
 import Page from './components/page.js';
 import {byUrl as selectGroupByUrl} from './selectkatagroup.js';
 
-
-class AppUrl {
-  static buildUrlForKata(kata) {
-    const urlWithoutKataId = window.location.href.replace(/&kataId=\d+$/, '');
-    return `${urlWithoutKataId}&kataId=${kata.id}`;
-  }
-  static buildUrlForKataGroup(kataGroup) {
-    const urlWithoutKataGroup = window.location.href.replace(/#kataGroup=.*/, '');
-    var name = kataGroup.name.replace(' ', '_');
-    return `${urlWithoutKataGroup}#kataGroup=${encodeURIComponent(name)}`;
-  }
-}
-
 class AppState {
   initialize(rawKataData) {
     this.kataGroups = KataGroups.fromRawKataData(rawKataData);
