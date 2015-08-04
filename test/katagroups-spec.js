@@ -55,6 +55,27 @@ describe('provides', function() {
 
 describe('selecting', function() {
 
+  describe('by default, when nothing was explicitly selected', function() {
+    it('the first group is selected', function() {
+      const rawData = {
+        one: {items: [], slug: 'one'},
+        two: {items: [], slug: 'two'}
+      };
+      const kataGroups = KataGroups.fromRawKataData(rawData);
+
+      assert.deepEqual(kataGroups.firstGroup, kataGroups.selectedGroup);
+    });
+    it('the first kata of the first group is selected', function() {
+      const rawData = {
+        one: {items: [{id: 1}], slug: 'one'},
+        two: {items: [{id: 2}], slug: 'two'}
+      };
+      const kataGroups = KataGroups.fromRawKataData(rawData);
+
+      assert.deepEqual(kataGroups.firstGroup.katas[0], kataGroups.selectedKata);
+    });
+  });
+
   describe('a kata group', function() {
     it('by name', function() {
       const groupName = 'group one';
@@ -90,9 +111,9 @@ describe('selecting', function() {
         const fn = () => { kataGroups.selectKataById(-1); };
         assert.doesNotThrow(fn);
       });
-      it('`selectedKata` is undefined', function() {
+      it('`selectedKata` is the first of the selected group', function() {
         kataGroups.selectKataById(-1);
-        assert.equal(kataGroups.selectedKata, void 0);
+        assert.equal(kataGroups.selectedKata, kataGroups.firstGroup.katas[0]);
       });
     });
   });

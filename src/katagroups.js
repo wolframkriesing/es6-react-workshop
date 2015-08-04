@@ -24,11 +24,11 @@ export default class KataGroups {
   }
 
   get selectedGroup() {
-    return this._selectedGroup;
+    return this._selectedGroup || this.firstGroup;
   }
 
   get selectedKata() {
-    return this._selectedKata;
+    return this._selectedKata || this.firstGroup.katas[0];
   }
 
   selectGroupBySlug(slugToSelect) {
