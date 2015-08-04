@@ -13,34 +13,23 @@ function selectGroupByUrl(kataGroups, urlData) {
 
 describe('select kata and/or kata group by given url data', function() {
 
-  describe('selects the first group+it`s first kata', function() {
-    let kataGroups;
-    beforeEach(function() {
+  describe('if select fails, firstGroup+kata stay selected', function() {
+    it('when no URL data are given', function() {
       const rawData = {
         group1: {name: 'one', items: []},
         group2: {name: 'two', items: []}
       };
-      kataGroups = KataGroups.fromRawKataData(rawData);
-    });
-    it('when no URL data are given', function() {
+      let kataGroups = KataGroups.fromRawKataData(rawData);
       let noUrlData = {};
+
       selectGroupByUrl(kataGroups, noUrlData);
 
-      //assert.equal(kataGroups.selectedGroup, kataGroups.firstGroup);
-    });
-    it('for url data without valid properties e.g. `kataGroup`', function() {
-      let kataGroups = new KataGroups();
-      sinon.stub(kataGroups, 'selectGroupBySlug');
-
-      let urlDataWithoutValidKataGroup = {nokatagroup: 'bla'};
-      selectGroupByUrl(kataGroups, urlDataWithoutValidKataGroup);
-
-      assert.notCalled(kataGroups.selectGroupBySlug);
+      assert.equal(kataGroups.selectedGroup, kataGroups.firstGroup);
     });
   });
 
   describe('select right kata group', function() {
-    it('a hash with `kataGroupSlug=x`', function() {
+    it('for `kataGroupSlug=x`', function() {
       let kataGroups = new KataGroups();
       sinon.stub(kataGroups, 'selectGroupBySlug');
 
