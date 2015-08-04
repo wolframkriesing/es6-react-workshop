@@ -11,19 +11,24 @@ function selectGroupByUrl(kataGroups, urlData) {
   appState.updateFromUrlData(urlData);
 }
 
-describe('a URL change selects a certain kata group', function() {
+describe('select kata and/or kata group by given url data', function() {
 
-  describe('selects nothing', function() {
-    it('for an empty query', function() {
-      let kataGroups = new KataGroups();
-      sinon.stub(kataGroups, 'selectGroupBySlug');
-
+  describe('selects the first group+it`s first kata', function() {
+    let kataGroups;
+    beforeEach(function() {
+      const rawData = {
+        group1: {name: 'one', items: []},
+        group2: {name: 'two', items: []}
+      };
+      kataGroups = KataGroups.fromRawKataData(rawData);
+    });
+    it('when no URL data are given', function() {
       let noUrlData = {};
       selectGroupByUrl(kataGroups, noUrlData);
 
-      assert.notCalled(kataGroups.selectGroupBySlug);
+      //assert.equal(kataGroups.selectedGroup, kataGroups.firstGroup);
     });
-    it('for a hash without `kataGroup`', function() {
+    it('for url data without valid properties e.g. `kataGroup`', function() {
       let kataGroups = new KataGroups();
       sinon.stub(kataGroups, 'selectGroupBySlug');
 
