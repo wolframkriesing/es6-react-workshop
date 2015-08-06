@@ -13,12 +13,11 @@ export default class AppState {
   }
 
   updateFromUrlData(urlData) {
-    if (urlData.kataGroupSlug) {
-      this.kataGroups.selectGroupBySlug(urlData.kataGroupSlug);
-    }
     if (urlData.kataId) {
       this.kataGroups.selectKataById(urlData.kataId);
+      return;
     }
+    this.kataGroups.selectGroupBySlug(urlData.kataGroupSlug);
   }
 
 }
