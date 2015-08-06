@@ -14,7 +14,11 @@ export function hasSubComponentOfTypeWithProps(componentToRender, type, expected
 
   var output = render(componentToRender);
   const components = componentsOfType(allChildrenOf(output), type);
-  assert.deepEqual(components[0].props, expectedProps);
+  // check only for the given expectedProps!
+  Object.keys(expectedProps)
+    .forEach(propName => {
+      assert.deepEqual(components[0].props[propName], expectedProps[propName]);
+    });
 }
 
 function allChildrenOf(renderedOutput) {
