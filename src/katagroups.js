@@ -40,6 +40,7 @@ export default class KataGroups {
     this.groups.some(group => {
       if (group.slug === slugToSelect) {
         this.selectGroup(group);
+        this.resetSelectedKata();
         return true; // stop iterating
       }
     });
