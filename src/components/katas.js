@@ -18,7 +18,7 @@ export default class KatasComponent extends React.Component {
   }
 }
 
-export class KataLinkComponent extends React.Component {
+class KataLinkComponent extends React.Component {
   render() {
     var {kata, appUrl} = this.props;
     return (
