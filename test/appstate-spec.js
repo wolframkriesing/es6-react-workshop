@@ -6,7 +6,7 @@ import sinon from 'sinon';
 assert.notCalled = sinon.assert.notCalled;
 assert.calledWith = sinon.assert.calledWith;
 
-function selectGroupByUrl(kataGroups, urlData) {
+function updateSelectionByUrl(kataGroups, urlData) {
   let appState = AppState.initializeFromKataGroups(kataGroups);
   appState.updateFromUrlData(urlData);
 }
@@ -16,13 +16,13 @@ describe('select kata and/or kata group by given url data', function() {
   describe('if select fails, firstGroup+kata stay selected', function() {
     it('when no URL data are given', function() {
       const rawData = {
-        group1: {name: 'one', items: []},
-        group2: {name: 'two', items: []}
+        group1: {name: 'group1', items: []},
+        group2: {name: 'group2', items: []}
       };
       let kataGroups = KataGroups.fromRawKataData(rawData);
       let noUrlData = {};
 
-      selectGroupByUrl(kataGroups, noUrlData);
+      updateSelectionByUrl(kataGroups, noUrlData);
 
       assert.equal(kataGroups.selectedGroup, kataGroups.firstGroup);
     });
@@ -34,7 +34,7 @@ describe('select kata and/or kata group by given url data', function() {
       sinon.stub(kataGroups, 'selectGroupBySlug');
 
       let urlData = {kataGroupSlug: 'x'};
-      selectGroupByUrl(kataGroups, urlData);
+      updateSelectionByUrl(kataGroups, urlData);
 
       assert.calledWith(kataGroups.selectGroupBySlug, 'x');
     });
