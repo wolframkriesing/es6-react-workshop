@@ -2,16 +2,12 @@ import {parse as parseUrl} from 'url';
 
 export default class AppUrl {
 
-  static buildUrlForKata(kata) {
-    const urlParts = window.location.hash.split('/');
-    if (urlParts.length >= 3) {
-      return `${urlParts.slice(0, 3).join('/')}/${kata.id}`;
-    }
+  static buildUrlForKataGroup(kataGroup) {
+    return `${window.location.pathname}#/kata/${encodeURIComponent(kataGroup.slug)}`;
   }
 
-  static buildUrlForKataGroup(kataGroup) {
-    const urlWithoutKataGroup = window.location.href.replace(/#\/kata.*/, '');
-    return `${urlWithoutKataGroup}#/kata/${encodeURIComponent(kataGroup.slug)}`;
+  static buildUrlForKata(kata) {
+    return `${AppUrl.buildUrlForKataGroup(kata.kataGroup)}/${kata.id}`;
   }
 
   static urlData(url) {
