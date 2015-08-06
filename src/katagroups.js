@@ -11,7 +11,8 @@ export default class KataGroups {
       .keys(rawGroups)
       .map(groupName => {
         const group = rawGroups[groupName];
-        return new KataGroup(groupName, group.slug, group.items);
+        const katas = group.items;
+        return new KataGroup(groupName, group.slug, katas);
       })
       .sort(({katasCount: katasCount1}, {katasCount: katasCount2}) => {
         return katasCount2 - katasCount1;
@@ -58,10 +59,25 @@ export default class KataGroups {
 }
 
 export class KataGroup {
-  constructor(name, slug, items) {
+  constructor(name, slug, katas) {
     this.name = name;
     this.slug = slug;
-    this.katasCount = items.length;
-    this.katas = items;
+    this.katasCount = katas.length;
+    this.katas = katas.map(kata => Kata.fromRawKataData(kata, this));
+  }
+}
+
+class Kata {
+
+  constructor(kata, group) {
+    this.id = kata.id;
+    this.name = kata.name;
+    this.description = kata.description;
+    this.path = kata.path;
+    this.kataGroup = group;
+  }
+
+  static fromRawKataData(rawKataData, kataGroup) {
+    return new Kata(rawKataData, kataGroup);
   }
 }
