@@ -29,7 +29,7 @@ export default class KataGroups {
   }
 
   get selectedKata() {
-    return this._selectedKata || this.firstGroup.katas[0];
+    return this._selectedKata || this.selectedGroup.katas[0];
   }
 
   selectGroup(group) {

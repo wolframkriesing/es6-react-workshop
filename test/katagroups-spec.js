@@ -77,7 +77,7 @@ describe('selecting', function() {
   });
 
   describe('a kata group', function() {
-    it('by name', function() {
+    it('by slug', function() {
       const groupName = 'group one';
       const groupSlug = 'group_one';
       const rawData = {[groupName]: {items: [], slug: groupSlug}};
@@ -85,6 +85,16 @@ describe('selecting', function() {
 
       kataGroups.selectGroupBySlug(groupSlug);
       assert.equal(kataGroups.selectedGroup.name, groupName);
+    });
+    it('selects the first kata in this group', function() {
+      const rawData = {
+        one: {items: [{id: 1}], slug: 'one'},
+        two: {items: [{id: 2}], slug: 'two'}
+      };
+      const kataGroups = KataGroups.fromRawKataData(rawData);
+
+      kataGroups.selectGroupBySlug('two');
+      assert.equal(kataGroups.selectedKata.id, 2);
     });
   });
 
