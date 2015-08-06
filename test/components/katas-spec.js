@@ -50,4 +50,20 @@ describe('KatasComponent', function() {
       assert.rendersDomNodeWithAttrAndValue(component, 'href', urlForKata);
     });
   });
+
+  it('highlights the selected kata', function() {
+    const rawKataData = {
+      one: {items: [{id: 1, name: 'one', description: 'desc 1'}]},
+      two: {items: [{id: 2, name: 'two', description: 'desc 2'}]}
+    };
+    let kataGroups = KataGroups.fromRawKataData(rawKataData);
+
+    const appUrlDouble = {buildUrlForKata() { return urlForKata; }};
+    let component = <KatasComponent
+      selectedKata={kataGroups.selectedKata}
+      kataGroup={kataGroups.selectedGroup}
+      appUrl={appUrlDouble} />;
+
+    assert.rendersDomNodeWithAttrAndValue(component, 'className', KatasComponent.CLASSNAMES_FOR_SELECTED_KATA);
+  });
 });

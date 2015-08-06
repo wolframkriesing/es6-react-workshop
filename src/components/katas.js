@@ -8,21 +8,28 @@ export default class KatasComponent extends React.Component {
   };
 
   render() {
-    const appUrl = this.props.appUrl;
-    const {katas} = this.props.kataGroup;
+    const {appUrl, kataGroup, selectedKata} = this.props;
+    const {katas} = kataGroup;
+    const isSelected = kata => kata === selectedKata;
     return (
       <div id="list" className="pure-u-1">
-        {katas.map(kata => <KataLinkComponent kata={kata} appUrl={appUrl} />)}
+        {katas.map(kata => <KataLinkComponent kata={kata} isSelected={isSelected(kata)} appUrl={appUrl} />)}
       </div>
     );
   }
 }
+KatasComponent.CLASSNAMES_FOR_SELECTED_KATA = 'email-item pure-g email-item-selected';
+KatasComponent.CLASSNAMES_FOR_UNSELECTED_KATA = 'email-item pure-g';
 
 class KataLinkComponent extends React.Component {
   render() {
-    var {kata, appUrl} = this.props;
+    let {kata, appUrl, isSelected} = this.props;
+    let classNames = KatasComponent.CLASSNAMES_FOR_UNSELECTED_KATA;
+    if (isSelected) {
+      classNames = KatasComponent.CLASSNAMES_FOR_SELECTED_KATA;
+    }
     return (
-      <div className="email-item pure-g">
+      <div className={classNames}>
         <a className="pure-u-3-4" href={appUrl.buildUrlForKata(kata)}>
           <h4 className="email-subject">{kata.name}</h4>
           <p className="email-desc">{kata.description}</p>
