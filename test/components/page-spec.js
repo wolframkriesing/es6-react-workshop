@@ -52,6 +52,17 @@ describe('page component', function() {
       var expectedProps = {kataGroup: kataGroups.firstGroup, appUrl: appUrlDouble};
       assert.hasSubComponentOfTypeWithProps(<PageComponent kataGroups={kataGroups} appUrl={appUrlDouble}/>, KatasComponent, expectedProps);
     });
+    it('passes the selectedKata to the KatasComponent', function() {
+      const rawKataData = {groupOne: {items: []}, groupTwo: {items: []}};
+      let kataGroups = KataGroups.fromRawKataData(rawKataData);
+
+      var expectedProps = {
+        kataGroup: kataGroups.firstGroup,
+        selectedKata: kataGroups.selectedKata,
+        appUrl: appUrlDouble
+      };
+      assert.hasSubComponentOfTypeWithProps(<PageComponent kataGroups={kataGroups} appUrl={appUrlDouble}/>, KatasComponent, expectedProps);
+    });
   });
 
   describe('the Kata component', function() {
