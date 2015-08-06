@@ -22,7 +22,7 @@ describe('kata groups (data for rendering)', function() {
       assert.equal(firstGroup.name, groupName);
     });
     it('has a katasCount', () => {assert.equal(firstGroup.katasCount, 1); });
-    it('has all katas', () => {assert.strictEqual(firstGroup.katas, katas); });
+    it('contains the given kata', () => {assert.strictEqual(firstGroup.katas[0].id, katas[0].id); });
     it('has a slug', () => {assert.strictEqual(firstGroup.slug, slug); });
   });
   it('a group without items ...', function() {
