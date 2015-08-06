@@ -55,9 +55,9 @@ describe('select kata and/or kata group by given url data', function() {
     it('select kata properly', function() {
       assert.deepEqual(kataGroups.selectedKata.id, 3);
     });
-    //it('automatically select kataGroup properly', function() {
-    //  assert.deepEqual(kataGroups.selectedGroup.name, 'group2');
-    //});
+    it('automatically select kataGroup properly', function() {
+      assert.deepEqual(kataGroups.selectedGroup.name, 'group2');
+    });
 
     //describe('and a kataGroup slug of another group (as where the kata with kata ID is in)', function() {
     //  it('keep the katagroup of the kata with kata ID selected', function() {

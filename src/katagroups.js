@@ -32,13 +32,21 @@ export default class KataGroups {
     return this._selectedKata || this.firstGroup.katas[0];
   }
 
+  selectGroup(group) {
+    this._selectedGroup = group;
+  }
+
   selectGroupBySlug(slugToSelect) {
     this.groups.some(group => {
       if (group.slug === slugToSelect) {
-        this._selectedGroup = group;
+        this.selectGroup(group);
         return true; // stop iterating
       }
     });
+  }
+
+  selectKata(kata) {
+    this._selectedKata = kata;
   }
 
   selectKataById(kataId) {
@@ -48,7 +56,8 @@ export default class KataGroups {
       .reduce((katas, all = []) => all.concat(katas)) // flatten the katas
       .filter(kata => kata.id === kataId); // find the one with the id we want
     if (katasWithKataId.length === 1) {
-      this._selectedKata = katasWithKataId[0];
+      this.selectKata(katasWithKataId[0]);
+      this.selectGroup(this.selectedKata.kataGroup);
     }
   }
 
