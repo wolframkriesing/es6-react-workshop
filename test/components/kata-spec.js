@@ -8,6 +8,7 @@ import {
 describe('katas component', function() {
 
   const kataData = {
+    id: 42,
     name: 'kata name',
     description: 'kata desc'
   };
@@ -19,7 +20,7 @@ describe('katas component', function() {
 
   it('renders the name', function() {
     let comp = buildComponent(kataData);
-    rendersDomNodeWithTextContent(comp, kataData.name);
+    rendersDomNodeWithTextContent(comp, `#${kataData.id} ${kataData.name}`);
   });
 
   it('renders the description', function() {
