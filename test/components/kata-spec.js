@@ -1,24 +1,37 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import KataComponent from '../../src/components/kata.js';
 import {
-  rendersDomNodeWithTextContent
+  rendersDomNodeWithTextContent,
+  rendersDomNodeWithAttrAndValue
 } from 'react-components-asserts';
 
 describe('katas component', function() {
 
-  const kata = {
+  const kataData = {
     name: 'kata name',
     description: 'kata desc'
   };
+  const outgoingUrlDouble = {toKataOnTddbin(){}};
+
+  function buildComponent(kata=kataData, outgoingUrl=outgoingUrlDouble) {
+    return <KataComponent kata={kata} outgoingUrl={outgoingUrl} />;
+  }
 
   it('renders the name', function() {
-    let comp = <KataComponent kata={kata} />;
-    rendersDomNodeWithTextContent(comp, kata.name);
+    let comp = buildComponent(kataData);
+    rendersDomNodeWithTextContent(comp, kataData.name);
   });
 
   it('renders the description', function() {
-    let comp = <KataComponent kata={kata} />;
-    rendersDomNodeWithTextContent(comp, kata.description);
+    let comp = buildComponent(kataData);
+    rendersDomNodeWithTextContent(comp, kataData.description);
+  });
+
+  it('renders the outgoing URL to tddbin, to the kata', function() {
+    const tddbinUrl = 'tddbinUrl';
+    const outgoingUrl = {toKataOnTddbin(){ return tddbinUrl; }};
+    let comp = buildComponent(undefined, outgoingUrl);
+    rendersDomNodeWithAttrAndValue(comp, 'href', tddbinUrl);
   });
 
 });
