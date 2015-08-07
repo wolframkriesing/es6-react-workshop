@@ -14,20 +14,15 @@ import KataGroups from '../../src/katagroups.js';
 
 describe('KatasComponent', function() {
 
-  let component;
-  let kataGroup;
-  var kataName = 'kata name';
-  var description = 'kata desc';
-  const urlForKata = 'url for kata';
-  beforeEach(function() {
+  function buildComponent({kataName='', description='', urlForKata=''}) {
     const rawKataData = {
       'kata group name': {items: [{id: 1, name: kataName, description: description}]}
     };
     let kataGroups = KataGroups.fromRawKataData(rawKataData);
-    kataGroup = kataGroups.firstGroup;
+    const kataGroup = kataGroups.firstGroup;
     const appUrlDouble = {buildUrlForKata() { return urlForKata; }};
-    component = <KatasComponent kataGroup={kataGroup} appUrl={appUrlDouble} />;
-  });
+    return <KatasComponent kataGroup={kataGroup} appUrl={appUrlDouble} />;
+  }
   function render(componentToRender) {
     const shallowRenderer = TestUtils.createRenderer();
     shallowRenderer.render(componentToRender);
@@ -35,19 +30,22 @@ describe('KatasComponent', function() {
   }
 
   it('renders as many katas as there are', function() {
-    let output = render(component);
+    let output = render(buildComponent({}));
     let renderedKatas = output.props.children;
     assert.equal(renderedKatas.length, 1);
   });
   describe('renders the properties', function() {
     it('the `name`', function() {
-      assert.rendersDomNodeWithTextContent(component, kataName);
+      const kataName = 'kata name';
+      assert.rendersDomNodeWithTextContent(buildComponent({kataName}), kataName);
     });
     it('the `description`', function() {
-      assert.rendersDomNodeWithTextContent(component, description);
+      const description = 'kata desc';
+      assert.rendersDomNodeWithTextContent(buildComponent({description}), description);
     });
     it('the URL properly', function() {
-      assert.rendersDomNodeWithAttrAndValue(component, 'href', urlForKata);
+      const urlForKata = 'url for kata';
+      assert.rendersDomNodeWithAttrAndValue(buildComponent({urlForKata}), 'href', urlForKata);
     });
   });
 
@@ -58,6 +56,7 @@ describe('KatasComponent', function() {
     };
     let kataGroups = KataGroups.fromRawKataData(rawKataData);
 
+    const urlForKata = 'urlForKata';
     const appUrlDouble = {buildUrlForKata() { return urlForKata; }};
     let component = <KatasComponent
       selectedKata={kataGroups.selectedKata}
