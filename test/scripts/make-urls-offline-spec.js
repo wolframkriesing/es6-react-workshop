@@ -1,5 +1,5 @@
 import assert from 'assert';
-import {replaceOnlineUrls} from '../../src/scripts/make-urls-offline';
+import {useOfflineUrls} from '../../src/scripts/make-urls-offline';
 
 describe('modify the dist/index.html file to work offline', function() {
 
@@ -17,7 +17,7 @@ describe('modify the dist/index.html file to work offline', function() {
   describe('replace `http://cdnjs...` with `../vendor/`', function() {
     let replaced;
     beforeEach(function() {
-      replaced = replaceOnlineUrls(indexHtmlContent);
+      replaced = useOfflineUrls(indexHtmlContent);
     });
     it('removes `cdnjs` URLs', function() {
       assert.equal(replaced.includes('https://cdnjs.cloudflare'), false);
@@ -30,7 +30,7 @@ describe('modify the dist/index.html file to work offline', function() {
   describe('replaces `http://yui.yahooapis...` with `../vendor/`', function() {
     let replaced;
     beforeEach(function() {
-      replaced = replaceOnlineUrls(indexHtmlContent);
+      replaced = useOfflineUrls(indexHtmlContent);
     });
     it('removes the YUI URL', function() {
       assert.equal(replaced.includes('http://yui.yahooapis.com/'), false);

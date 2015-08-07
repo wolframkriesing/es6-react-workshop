@@ -14,6 +14,7 @@
     "build:html": "cp src/index.html dist",
     "build:css": "cp -R vendor/pure-layout-email/css dist; cp -R vendor/pure-layout-email/img dist",
     "build": "mkdir -p dist; npm run verify-env && npm test && npm run build:app && npm run build:html && npm run build:css",
+    "build-for-offline": "npm run build; babel-node scripts/modify-for-offline.js",
     "watch:build": "chokidar 'src' -c 'npm run build'",
     "watch:build:app": "chokidar 'src' -c 'npm run build:app'",
     "watch:build:html": "chokidar 'src/index.html' -c 'npm run build:html'",
