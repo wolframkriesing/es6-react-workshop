@@ -9,10 +9,11 @@
   "scripts": {
     "test": "npm run lint && mocha --compilers js:babel-core/register",
     "lint": "eslint src && eslint test",
-    "build:app": "browserify src/index.js --outfile=dist/index.min.js --transform=babelify",
+    "verify-env": "babel-node scripts/verify-env.js",
+    "build:app": "browserify src/index.js --outfile=dist/index.min.js --transform=babelify --transform=envify",
     "build:html": "cp src/index.html dist",
     "build:css": "cp -R vendor/pure-layout-email/css dist; cp -R vendor/pure-layout-email/img dist",
-    "build": "mkdir -p dist; npm test && npm run build:app && npm run build:html && npm run build:css",
+    "build": "mkdir -p dist; npm run verify-env && npm test && npm run build:app && npm run build:html && npm run build:css",
     "watch:build": "chokidar 'src' -c 'npm run build'",
     "watch:build:app": "chokidar 'src' -c 'npm run build:app'",
     "watch:build:html": "chokidar 'src/index.html' -c 'npm run build:html'",
@@ -40,6 +41,7 @@
     "eslint-plugin-react": "^2.6.4",
     "babel-eslint": "^3.1.23",
     "react-components-asserts": "^1.0.0",
-    "babel": "^5.8.20"
+    "babel": "^5.8.20",
+    "envify": "^3.4.0"
   }
 }
