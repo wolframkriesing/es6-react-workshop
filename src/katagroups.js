@@ -1,3 +1,5 @@
+import Kata from './kata.js';
+
 export default class KataGroups {
 
   constructor() {
@@ -74,20 +76,5 @@ export class KataGroup {
     this.slug = slug;
     this.katasCount = katas.length;
     this.katas = katas.map(kata => Kata.fromRawKataData(kata, this));
-  }
-}
-
-class Kata {
-
-  constructor(kata, group) {
-    this.id = kata.id;
-    this.name = kata.name;
-    this.description = kata.description;
-    this.path = kata.path;
-    this.kataGroup = group;
-  }
-
-  static fromRawKataData(rawKataData, kataGroup) {
-    return new Kata(rawKataData, kataGroup);
   }
 }
