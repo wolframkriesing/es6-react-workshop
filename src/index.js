@@ -4,6 +4,7 @@ import {loadRemoteFile} from './_external-deps/http-get.js';
 import React from 'react';
 import Page from './components/page.js';
 import AppUrl from './appurl';
+import OutgoingUrl from './outgoing-url';
 import AppState from './appstate';
 import 'babel/polyfill';
 
@@ -23,7 +24,7 @@ class AppControl {
   }
   rerender() {
     const kataGroups = this.appState.kataGroups;
-    React.render(<Page kataGroups={kataGroups} appUrl={AppUrl}/>, document.getElementById('app'));
+    React.render(<Page kataGroups={kataGroups} appUrl={AppUrl} outgoingUrl={OutgoingUrl}/>, document.getElementById('app'));
   }
 }
 
