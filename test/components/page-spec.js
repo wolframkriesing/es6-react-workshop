@@ -75,12 +75,12 @@ describe('page component', function() {
       var expectedProps = {kata: kataGroups.selectedKata};
       assert.hasSubComponentOfTypeWithProps(<PageComponent kataGroups={kataGroups} appUrl={appUrlDouble} />, KataComponent, expectedProps);
     });
-    //it('if no selectedGroup exists receives the firstGroup from the KataGroupsData instance', function() {
-    //  const rawKataData = {'first group': {items: []}, 'second group': {items: []}};
-    //  let kataGroups = KataGroups.fromRawKataData(rawKataData);
-    //
-    //  var expectedProps = {kataGroup: kataGroups.firstGroup, appUrl: appUrlDouble};
-    //  assert.hasSubComponentOfTypeWithProps(<PageComponent kataGroups={kataGroups} appUrl={appUrlDouble}/>, KatasComponent, expectedProps);
-    //});
+    it('receives the `outgoingUrl` ref', function() {
+      let kataGroups = KataGroups.fromRawKataData({['group name']: {items: [{id: 1, name: 'one'}], slug: 'slug'}});
+      const outgoingUrl = {toKataOnTddbin(){}};
+
+      var expectedProps = {outgoingUrl: outgoingUrl};
+      assert.hasSubComponentOfTypeWithProps(<PageComponent kataGroups={kataGroups} appUrl={appUrlDouble} outgoingUrl={outgoingUrl} />, KataComponent, expectedProps);
+    });
   });
 });
