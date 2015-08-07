@@ -1,7 +1,6 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import KataComponent from '../../src/components/kata.js';
 import {
-  rendersDomNodeWithAttrAndValue,
   rendersDomNodeWithTextContent
 } from 'react-components-asserts';
 
@@ -21,5 +20,5 @@ describe('katas component', function() {
     let comp = <KataComponent kata={kata} />;
     rendersDomNodeWithTextContent(comp, kata.description);
   });
-  
+
 });
