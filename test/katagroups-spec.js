@@ -5,25 +5,36 @@ describe('kata groups (data for rendering)', function() {
 
   describe('a group', function() {
     let firstGroup;
-    const katas = [
-      {name: 'jojo', path: 'some', id: '42'}
-    ];
-    const slug = 'group-slug';
-
-    function createKataGroups(groupName = 'group one') {
+    function createKataGroups(groupName = 'group one', katas = [], slug = '') {
       const rawData = {[groupName]: {items: katas, slug: slug}};
       let kataGroups = KataGroups.fromRawKataData(rawData);
       firstGroup = kataGroups.groups[0];
     }
-    beforeEach(createKataGroups);
+
     it('has the name of the kata group', () => {
       var groupName = 'group name';
       createKataGroups(groupName);
       assert.equal(firstGroup.name, groupName);
     });
-    it('has a katasCount', () => {assert.equal(firstGroup.katasCount, 1); });
-    it('contains the given kata', () => {assert.strictEqual(firstGroup.katas[0].id, katas[0].id); });
-    it('has a slug', () => {assert.strictEqual(firstGroup.slug, slug); });
+
+    it('has a katasCount', () => {
+      const katas = [];
+      createKataGroups('groupName', katas);
+      assert.equal(firstGroup.katasCount, katas.length);
+    });
+
+    it('contains the given kata', () => {
+      const katas = [
+        {name: 'jojo', path: 'some', id: '42'}
+      ];
+      createKataGroups('groupname', katas);
+      assert.strictEqual(firstGroup.katas[0].id, katas[0].id);
+    });
+    it('has a slug', () => {
+      const slug = 'group-slug';
+      createKataGroups('groupname', [], slug);
+      assert.strictEqual(firstGroup.slug, slug);
+    });
   });
   it('a group without items ...', function() {
     //processRawData({groups: {'group one': {items: []}}});
