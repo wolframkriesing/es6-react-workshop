@@ -13,14 +13,20 @@ describe('katas component', function() {
     description: 'kata desc'
   };
   const outgoingUrlDouble = {toKataOnTddbin(){}};
+  const appUrlDouble = {buildUrlForKata(){}};
 
   function buildComponent(kata=kataData, outgoingUrl=outgoingUrlDouble) {
-    return <KataComponent kata={kata} outgoingUrl={outgoingUrl} />;
+    return <KataComponent kata={kata} outgoingUrl={outgoingUrl} appUrl={appUrlDouble} />;
   }
+
+  it('renders `#ID`', function() {
+    let comp = buildComponent(kataData);
+    rendersDomNodeWithTextContent(comp, `#${kataData.id}`);
+  });
 
   it('renders the name', function() {
     let comp = buildComponent(kataData);
-    rendersDomNodeWithTextContent(comp, `#${kataData.id} ${kataData.name}`);
+    rendersDomNodeWithTextContent(comp, `${kataData.name}`);
   });
 
   it('renders the description', function() {
