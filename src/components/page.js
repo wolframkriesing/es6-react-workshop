@@ -19,7 +19,7 @@ export default class PageComponent extends React.Component {
           kataGroup={kataGroups.selectedGroup}
           selectedKata={kataGroups.selectedKata}
           appUrl={appUrl} />
-        <KataComponent kata={kataGroups.selectedKata} outgoingUrl={outgoingUrl} />
+        <KataComponent kata={kataGroups.selectedKata} appUrl={appUrl} outgoingUrl={outgoingUrl} />
       </div>
     );
   }
