@@ -1,3 +1,5 @@
+import timeAgo from 'damals';
+
 export default class Kata {
 
   constructor(kata, group) {
@@ -7,6 +9,7 @@ export default class Kata {
     this.path = kata.path;
     this.kataGroup = group;
     this.releaseDate = new Date(kata.publishDateUTC);
+    this.releaseDateAgo = timeAgo(new Date(kata.publishDateUTC));
   }
 
   static fromRawKataData(rawKataData, kataGroup) {

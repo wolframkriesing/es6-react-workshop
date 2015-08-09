@@ -43,6 +43,8 @@
     "babel-eslint": "^3.1.23",
     "react-components-asserts": "^1.0.0",
     "babel": "^5.8.20",
-    "envify": "^3.4.0"
+    "envify": "^3.4.0",
+    "counterpart": "^0.16.9",
+    "damals": "^0.9.2"
   }
 }
