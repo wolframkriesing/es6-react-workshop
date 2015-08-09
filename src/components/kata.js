@@ -3,6 +3,8 @@ import React from 'react';
 export default class KataComponent extends React.Component {
   render() {
     const {kata, outgoingUrl, appUrl} = this.props;
+    const group = kata.kataGroup;
+
     return (
       <div id="main" className="pure-u-1">
         <div className="email-content">
@@ -11,7 +13,7 @@ export default class KataComponent extends React.Component {
               <a className="primary-button pure-button" target="_blank" href={outgoingUrl.toKataOnTddbin(kata)}>Open in TDDbin</a>
             </div>
             <div className="pure-u-4-5">
-              <h1 className="email-content-title"><a href={appUrl.buildUrlForKata(kata)}>#{kata.id}</a> {kata.name}</h1>
+              <h1 className="email-content-title"><a href={appUrl.buildUrlForKata(kata)}>#{kata.id}</a> {group.name}: {kata.name}</h1>
               <p className="email-content-subtitle">Released {kata.releaseDateAgo}</p>
               <h2>{kata.description}</h2>
             </div>

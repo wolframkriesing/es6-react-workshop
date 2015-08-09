@@ -10,7 +10,8 @@ describe('katas component', function() {
   const kataData = {
     id: 42,
     name: 'kata name',
-    description: 'kata desc'
+    description: 'kata desc',
+    kataGroup: {name: 'group name'}
   };
   const outgoingUrlDouble = {toKataOnTddbin(){}};
   const appUrlDouble = {buildUrlForKata(){}};
@@ -32,6 +33,11 @@ describe('katas component', function() {
   it('renders the description', function() {
     let comp = buildComponent(kataData);
     rendersDomNodeWithTextContent(comp, kataData.description);
+  });
+
+  it('renders the kata group name', function() {
+    let comp = buildComponent(kataData);
+    rendersDomNodeWithTextContent(comp, kataData.kataGroup.name);
   });
 
   it('renders the outgoing URL to tddbin, to the kata', function() {
